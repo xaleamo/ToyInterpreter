@@ -1,6 +1,7 @@
 package Model.ProgramState.ADTs;
 
 import MyExceptions.MyException;
+import MyExceptions.ProgramStateException;
 
 import java.util.Hashtable;
 
@@ -21,8 +22,20 @@ public class FileTableGeneric<K,V> implements IFileTableGeneric<K,V>{
         return table.put(k,v);
     }
     @Override
-    public V remove(K k) {
+    public void remove(K k) {
         if(k==null) throw new MyException("K is null");
-        return table.remove(k);
+        table.remove(k);
+    }
+    @Override
+    public boolean isDefined(K k) {
+        if(k==null) throw new MyException("K is null");
+        return table.containsKey(k);
+    }
+    @Override
+    public V lookUp(K k) {
+        if(k==null) throw new MyException("K is null");
+        V v= table.get(k);
+        if(v==null) throw new ProgramStateException("No such key exists.");
+        return v;
     }
 }

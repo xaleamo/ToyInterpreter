@@ -5,5 +5,5 @@ import Model.Value.StringValue;
 
 import java.io.BufferedReader;
 
-public class FilaTable extends FileTableGeneric<StringValue, BufferedReader> {
+public class FileTable extends FileTableGeneric<StringValue, BufferedReader> {
 }

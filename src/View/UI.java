@@ -41,6 +41,9 @@ public class UI {
         System.out.println("6. Load faulty program 3.");
         System.out.println("7. Load faulty program 4.");
         System.out.println("8. Load faulty program 5.");
+        System.out.println("9. Load faulty program 6.");
+        System.out.println("      ~~~~~~~");
+        System.out.println("10. Load file program 1.");
         System.out.println("-------------------");
     }
     private void runProgram(int p){

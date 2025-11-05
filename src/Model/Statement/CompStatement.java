@@ -21,6 +21,6 @@ public class CompStatement implements Statement {
 
     @Override
     public String toString(){
-        return "("+stmt1.toString()+"  \\|/  "+stmt2.toString()+");";
+        return stmt1.toString()+"\n"+stmt2.toString();
     }
 }

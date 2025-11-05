@@ -22,10 +22,10 @@ public class AssignStatement implements Statement {
 
 
         if(tbl.isDefined(id)) {
-            Value lookup = tbl.LookUp(id);//won't return null now
+            Value lookup = tbl.lookUp(id);//won't return null now
             //update value
             if (val.getType().equals(lookup.getType())) {
-                tbl.Add(id, val);
+                tbl.add(id, val);
             } else throw new StatementException("Lookup mismatch type");
 
         }

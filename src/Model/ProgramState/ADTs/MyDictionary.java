@@ -1,8 +1,5 @@
 package Model.ProgramState.ADTs;
 
-import MyExceptions.ProgramStateException;
-
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,11 +14,18 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V>{
     private HashMap<K,V> map=new HashMap<>();
 
     @Override
-    public  V Remove(K k) {
+    public  V remove(K k) {
         return map.remove(k);
     }
+
+    /**
+     * Associates the specified value with the specified key in this map. If the map previously contained a mapping for the key, the old value is replaced and returned.
+     * @param k key
+     * @param v value
+     * @return old value or null
+     */
     @Override
-    public V Add(K k, V v) {
+    public V add(K k, V v) {
         return map.put(k,v);
     }
 
@@ -35,7 +39,7 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V>{
      
 
      */
-    public V LookUp(K k) {
+    public V lookUp(K k) {
         return map.get(k);
     }
 

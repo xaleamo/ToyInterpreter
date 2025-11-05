@@ -12,11 +12,8 @@ public class VarDeclaration implements Statement {
     @Override
     public ProgramState execute(ProgramState ps) {
         SymTable symTable = ps.getSymTable();
-        if(symTable.LookUp(id)==null){
-            if(type.equals(new IntType()))
-                symTable.Add(id,new IntValue(0));
-            else if(type.equals(new BoolType()))
-                symTable.Add(id,new BoolValue(false));
+        if(symTable.lookUp(id)==null){
+            symTable.add(id, type.defaultValue());
         }
         else{
             throw new ProgramStateException("Variable already exists");

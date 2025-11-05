@@ -40,7 +40,7 @@ public class Repository implements IRepository {
     public void logPrgStateExec(ProgramState ps) {
         PrintWriter pw=null;
         try {
-            pw = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
+            pw = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));//creates new file if one is not found
             pw.write(ps.toString());
             pw.println();
         }

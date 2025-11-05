@@ -1,6 +1,8 @@
 package Model.ProgramState.ADTs;
 
 public interface IFileTableGeneric<K,V> {
-    public V add(K k,V v);
-    public V remove(K k);
+    V add(K k,V v);
+    void remove(K k);
+    boolean isDefined(K k);
+    V lookUp(K k);
 }

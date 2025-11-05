@@ -6,4 +6,6 @@ public interface Value {
     Type getType();
     @Override
     String toString();
+    @Override
+    boolean equals(Object o);
 }

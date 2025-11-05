@@ -16,4 +16,12 @@ public class BoolValue implements Value{
     public String toString(){return Boolean.toString(value);}
     @Override
     public Type getType(){return new BoolType(); }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BoolValue val = (BoolValue) o;
+        return this.value==val.value;
+    }
 }

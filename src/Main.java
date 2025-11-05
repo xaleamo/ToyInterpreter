@@ -1,17 +1,9 @@
 import Controller.Service;
-import Model.Expression.ArithExpr;
-import Model.Expression.ValueExpr;
-import Model.Expression.VariableExpr;
-import Model.ProgramState.ExecutionStack;
-import Model.ProgramState.Output;
-import Model.ProgramState.ProgramState;
-import Model.ProgramState.SymTable;
+import Model.Expression.*;
+import Model.ProgramState.*;
 import Model.Statement.*;
-import Model.Type.BoolType;
-import Model.Type.IntType;
-import Model.Value.BoolValue;
-import Model.Value.Id;
-import Model.Value.IntValue;
+import Model.Type.*;
+import Model.Value.*;
 import Repository.Repository;
 import View.UI;
 
@@ -38,6 +30,8 @@ private void addPredefinedPrograms(Repository repo) {
     repo.addProgram(FaultyProgram4());
     repo.addProgram(FaultyProgram5());
     repo.addProgram(FaultyProgram6());
+
+    repo.addProgram(FileProgram1());
 
 }
 
@@ -234,7 +228,7 @@ private ProgramState FaultyProgram5() {
 }
 
 /////invalid if condition type //int a; a=10; if(a) then print(1) else print(0);
-private static ProgramState FaultyProgram6() {
+private ProgramState FaultyProgram6() {
     Statement ex7 = new CompStatement(
             new VarDeclaration(new IntType(), new Id("a")),
             new CompStatement(
@@ -249,4 +243,48 @@ private static ProgramState FaultyProgram6() {
     ExecutionStack executionStack = new ExecutionStack();
     executionStack.push(ex7);
     return new ProgramState(executionStack, new SymTable(), new Output());
+}
+
+/////open, read twice and close file
+///string varf;
+/// varf="test.in";
+/// openRFile(varf);
+/// int varc;
+/// readFile(varf,varc);print(varc);
+/// readFile(varf,varc);print(varc)
+/// closeRFile(varf)
+private ProgramState FileProgram1() {
+    Statement s1 = new CompStatement(
+            new VarDeclaration(new StringType(), new Id("varf")),
+            new CompStatement(
+                    new AssignStatement(new Id("varf"), new ValueExpr(new StringValue("Files/test.txt"))),
+                    new CompStatement(
+                            new OpenRFile(new VariableExpr(new Id("varf"))),
+                            new CompStatement(
+                                    new VarDeclaration(new IntType(), new Id("varc")),
+                                    new CompStatement(
+                                            new ReadFile(new VariableExpr(new Id("varf")), new Id("varc")),
+                                            new CompStatement(
+                                                    new PrintStatement(new VariableExpr(new Id("varc"))),
+                                                    new CompStatement(
+                                                            new ReadFile(new VariableExpr(new Id("varf")), new Id("varc")),
+                                                            new CompStatement(
+                                                                    new PrintStatement(new VariableExpr(new Id("varc"))),
+                                                                    new CloseRFile(new VariableExpr(new Id("varf")))
+                                                            )
+                                                    )
+                                            )
+                                    )
+                            )
+                    )
+            )
+    );
+
+    //Statement s2= new CloseRFile(new VariableExpr(new Id("varf")));
+
+    ExecutionStack executionStack = new ExecutionStack();
+    //executionStack.push(s2);
+    executionStack.push(s1);
+    return new ProgramState(executionStack, new SymTable(), new Output());
+
 }
