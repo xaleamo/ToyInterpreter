@@ -3,12 +3,16 @@ package Repository;
 import MyExceptions.RepositoryException;
 import Model.ProgramState.*;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Repository implements IRepository {
-    ArrayList<ProgramState> programState = new ArrayList<ProgramState>();
-
-    public Repository() {}
+    private ArrayList<ProgramState> programState = new ArrayList<ProgramState>();
+    private String logFilePath;
+    public Repository() {
+        readLogFilePath();
+    }
 
     /**
      *
@@ -17,7 +21,7 @@ public class Repository implements IRepository {
      * @throws RepositoryException if index is out of bounds/program does not exist
      */
     @Override
-    public ProgramState GetCrtProgram(int i) {
+    public ProgramState getCrtProgram(int i) {
         try{
             return programState.get(i);
         }
@@ -28,6 +32,28 @@ public class Repository implements IRepository {
 
     public void addProgram(ProgramState p){
         programState.add(p);
+    }
+
+    @Override
+    public void logPrgStateExec(int i) {
+        PrintWriter pw=null;
+        try {
+            pw = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
+            ProgramState ps =getCrtProgram(i);
+            pw.write(ps.toString());
+            pw.println();
+        }
+        catch(IOException e) {
+            throw new RepositoryException("File not found.");
+        }
+        finally{
+            if(pw!=null) pw.close();
+        }
+    }
+
+    private void readLogFilePath(){//should move in UI
+        Scanner sc = new Scanner(System.in);
+        logFilePath= sc.nextLine();
     }
 
 }

@@ -21,7 +21,7 @@ public class Service {
      * @throws MyExceptions.RepositoryException if program <i>i</i> does not exist (indexing starts from 0)
      */
     public void setProgramState(int i) {
-        this.state=repo.GetCrtProgram(i);
+        this.state=repo.getCrtProgram(i);
     }
 
     /**
