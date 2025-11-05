@@ -39,8 +39,10 @@ public class Service {
 
     public void executeAll(){
         printProgramState();
+        repo.logPrgStateExec(state);
         while(!state.getExecutionStack().isEmpty()){
             executeOneStep();
+            repo.logPrgStateExec(state);
             if(displayFlag){
                 String s=state.toString();
                 System.out.println(s);

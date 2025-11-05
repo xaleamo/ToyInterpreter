@@ -1,6 +1,8 @@
 package Model.Type;
+import Model.Value.Value;
 
 public interface Type {
-    public boolean equals(Object t);
-    public String toString();
+    Value defaultValue();
+    boolean equals(Object t);
+    String toString();
 }

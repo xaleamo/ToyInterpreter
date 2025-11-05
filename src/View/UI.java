@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Service;
+import MyExceptions.FileException;
 import MyExceptions.RepositoryException;
 
 import java.util.Scanner;
@@ -49,7 +50,7 @@ public class UI {
             service.executeAll();
         }
         catch (RepositoryException e){
-            System.out.println("No such program state.");
+            System.out.println(e.getMessage());
         }
     }
 }

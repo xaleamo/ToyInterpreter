@@ -1,0 +1,87 @@
+Execution Stack: 
+IntType a;
+IntType b;
+a=10;
+b=20;
+print(a);
+print(b);
+print(a+b);
+Symbol table: 
+
+Output list: 
+-------------------------------------------
+Execution Stack: 
+IntType b;
+a=10;
+b=20;
+print(a);
+print(b);
+print(a+b);
+Symbol table: 
+a -> 0
+
+Output list: 
+-------------------------------------------
+Execution Stack: 
+a=10;
+b=20;
+print(a);
+print(b);
+print(a+b);
+Symbol table: 
+a -> 0
+b -> 0
+
+Output list: 
+-------------------------------------------
+Execution Stack: 
+b=20;
+print(a);
+print(b);
+print(a+b);
+Symbol table: 
+a -> 10
+b -> 0
+
+Output list: 
+-------------------------------------------
+Execution Stack: 
+print(a);
+print(b);
+print(a+b);
+Symbol table: 
+a -> 10
+b -> 20
+
+Output list: 
+-------------------------------------------
+Execution Stack: 
+print(b);
+print(a+b);
+Symbol table: 
+a -> 10
+b -> 20
+
+Output list: 
+10
+-------------------------------------------
+Execution Stack: 
+print(a+b);
+Symbol table: 
+a -> 10
+b -> 20
+
+Output list: 
+10
+20
+-------------------------------------------
+Execution Stack: 
+Symbol table: 
+a -> 10
+b -> 20
+
+Output list: 
+10
+20
+30
+-------------------------------------------

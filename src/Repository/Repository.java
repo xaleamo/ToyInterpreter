@@ -1,5 +1,7 @@
 package Repository;
 
+import MyExceptions.FileException;
+import MyExceptions.ProgramStateException;
 import MyExceptions.RepositoryException;
 import Model.ProgramState.*;
 
@@ -35,16 +37,15 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public void logPrgStateExec(int i) {
+    public void logPrgStateExec(ProgramState ps) {
         PrintWriter pw=null;
         try {
             pw = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
-            ProgramState ps =getCrtProgram(i);
             pw.write(ps.toString());
             pw.println();
         }
         catch(IOException e) {
-            throw new RepositoryException("File not found.");
+            throw new FileException("File not found.");
         }
         finally{
             if(pw!=null) pw.close();
@@ -52,6 +53,7 @@ public class Repository implements IRepository {
     }
 
     private void readLogFilePath(){//should move in UI
+        System.out.println("Enter Log File Path");
         Scanner sc = new Scanner(System.in);
         logFilePath= sc.nextLine();
     }
