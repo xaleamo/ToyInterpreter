@@ -55,4 +55,9 @@ public class ReadFile implements Statement {
 
         return ps;
     }
+
+    @Override
+    public String toString(){
+        return "ReadFile: "+expr.toString()+" -> "+id.toString();
+    }
 }

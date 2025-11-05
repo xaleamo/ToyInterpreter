@@ -27,10 +27,10 @@ public class ProgramState {
     @Override
     public String toString() {
         String str="";
-        str+="Execution Stack: \n"+executionStack.toString();
-        str+="Symbol table: \n"+symTable.toString()+"\n";
-        str+="Output list: \n"+output.toString();
-        str+="-------------------------------------------";
+        str+="\033[0;35mExecution Stack:\033[0m \n"+executionStack.toString();
+        str+="\033[0;35mSymbol table:\033[0m \n"+symTable.toString()+"\n";
+        str+="\033[0;35mOutput list:\033[0m \n"+output.toString();
+        str+="\033[0;34m-------------------------------------------\033[0m";
         return str;
     }
 

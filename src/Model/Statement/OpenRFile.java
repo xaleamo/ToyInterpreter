@@ -38,4 +38,9 @@ public class OpenRFile implements Statement{
         ps.getFileTable().add(value,br);
         return ps;
     }
+
+    @Override
+    public String toString(){
+        return "OpenRFile: "+expr.toString();
+    }
 }

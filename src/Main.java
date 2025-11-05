@@ -32,6 +32,7 @@ private void addPredefinedPrograms(Repository repo) {
     repo.addProgram(FaultyProgram6());
 
     repo.addProgram(FileProgram1());
+    repo.addProgram(InequalityProgram1());
 
 }
 
@@ -287,4 +288,22 @@ private ProgramState FileProgram1() {
     executionStack.push(s1);
     return new ProgramState(executionStack, new SymTable(), new Output());
 
+}
+
+private ProgramState InequalityProgram1() {
+    Statement s2 = new CompStatement(
+            new PrintStatement(new RelationalExpr(
+                    new ValueExpr(new IntValue(10)),
+                    new ValueExpr(new IntValue(10)),
+                    RelationalExpr.Operator.EQUAL
+            )),
+            new PrintStatement(new RelationalExpr(
+                    new ValueExpr(new IntValue(10)),
+                    new ValueExpr(new BoolValue(true)),
+                    RelationalExpr.Operator.LESS_OR_EQUAL
+            ))
+    );
+    ExecutionStack executionStack = new ExecutionStack();
+    executionStack.push(s2);
+    return new ProgramState(executionStack, new SymTable(), new Output());
 }

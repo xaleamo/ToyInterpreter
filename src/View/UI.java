@@ -44,6 +44,7 @@ public class UI {
         System.out.println("9. Load faulty program 6.");
         System.out.println("      ~~~~~~~");
         System.out.println("10. Load file program 1.");
+        System.out.println("11. Load half faulty inequality program.");
         System.out.println("-------------------");
     }
     private void runProgram(int p){

@@ -37,4 +37,9 @@ public class CloseRFile implements Statement{
         ps.getFileTable().remove(key);
         return ps;
     }
+
+    @Override
+    public String toString(){
+        return "CloseRFile: "+expr.toString();
+    }
 }
