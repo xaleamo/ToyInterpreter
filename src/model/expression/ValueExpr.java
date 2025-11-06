@@ -8,6 +8,9 @@ public class ValueExpr implements Expression {
     public ValueExpr(Value v) {
         this.v = v;
     }
+
+    @Override
+    public ValueExpr clone() {return new ValueExpr(v.clone());}
     @Override
     public Value eval(SymTable tbl){
         return v;

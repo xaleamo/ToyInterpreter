@@ -9,6 +9,10 @@ public class BoolValue implements Value{
     public BoolValue(boolean val){
         this.value = val;
     }
+
+    @Override
+    public BoolValue clone(){return new BoolValue(this.value);}
+
     public boolean getValue(){return value;}
     public void setValue(boolean val){this.value = val;}
 

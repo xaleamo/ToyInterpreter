@@ -11,6 +11,9 @@ public class VariableExpr implements Expression {
         this.id = id;
     }
 
+    @Override
+    public VariableExpr clone() {return new VariableExpr(id.clone());}
+
     /**
      *Looks up the value of the <b>id</b>
      * @param tbl Symbol table

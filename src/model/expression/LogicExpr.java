@@ -21,6 +21,9 @@ public class LogicExpr implements Expression {
         this.e2 = e2;
     }
     @Override
+    public LogicExpr clone() {return new LogicExpr(e1.clone(),op,e2.clone());}
+
+    @Override
     public Value eval(SymTable tbl){
         Value v1 = e1.eval(tbl);
         if(v1.getType().equals(new BoolType())){//is instance of BoolValue

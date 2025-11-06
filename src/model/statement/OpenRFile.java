@@ -20,6 +20,9 @@ public class OpenRFile implements Statement{
     }
 
     @Override
+    public OpenRFile clone() {return new OpenRFile(expr.clone());}
+
+    @Override
     public ProgramState execute(ProgramState ps) throws ProgramStateException, ExpressionException {
         Value val=expr.eval(ps.getSymTable());
         if(!val.getType().equals(new StringType())) throw new ExpressionException("Type Mismatch");

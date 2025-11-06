@@ -23,6 +23,10 @@ public class ArithExpr implements Expression {
         this.op2 = op2;
         this.operator = operator;
     }
+
+    @Override
+    public ArithExpr clone() {return new ArithExpr(op1.clone(), op2.clone(), operator);}
+
     @Override
     public Value eval(SymTable tbl){
         Value v1,v2;

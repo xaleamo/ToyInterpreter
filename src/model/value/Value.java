@@ -2,10 +2,10 @@ package model.value;
 
 import model.type.Type;
 
-public interface Value {
+public interface Value extends Cloneable {
     Type getType();
-    @Override
     String toString();
-    @Override
     boolean equals(Object o);
+
+    Value clone();
 }

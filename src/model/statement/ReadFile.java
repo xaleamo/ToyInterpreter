@@ -21,7 +21,8 @@ public class ReadFile implements Statement {
         this.expr=expr;
         this.id=id;
     }
-
+    @Override
+    public ReadFile clone() {return new ReadFile(expr.clone(),id.clone());}
     @Override
     public ProgramState execute(ProgramState ps) {
         //check expr value and type

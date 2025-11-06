@@ -9,6 +9,13 @@ import model.value.*;
 public class VarDeclaration implements Statement {
     Type type;
     Id id;
+    public VarDeclaration(Type type, Id id) {
+        this.type = type;
+        this.id = id;
+    }
+    @Override
+    public VarDeclaration clone() {return new VarDeclaration(type.clone(),id.clone());}
+
     @Override
     public ProgramState execute(ProgramState ps) {
         SymTable symTable = ps.getSymTable();
@@ -20,11 +27,6 @@ public class VarDeclaration implements Statement {
         }
         return ps;
     }
-    public VarDeclaration(Type type, Id id) {
-        this.type = type;
-        this.id = id;
-    }
-
     @Override
     public String toString(){
         return type.toString() + " " + id.toString()+";";

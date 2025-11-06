@@ -16,12 +16,14 @@ public class RelationalExpr implements Expression {
     Operator op;
 
 
-    public RelationalExpr(Expression expr1, Expression expr2, Operator op) {
+    public RelationalExpr(Expression expr1,Operator op, Expression expr2) {
         this.expr1 = expr1;
         this.expr2 = expr2;
         this.op = op;
     }
 
+    @Override
+    public RelationalExpr clone() {return new RelationalExpr(expr1.clone(), op, expr2.clone());}
 
     @Override
     public Value eval(SymTable tbl) {

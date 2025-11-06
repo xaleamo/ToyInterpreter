@@ -6,6 +6,9 @@ import model.value.Value;
 public class BoolType implements Type {
 
     @Override
+    public BoolType clone() {return new BoolType();}
+
+    @Override
     public Value defaultValue() {
         return new BoolValue(false);
     }

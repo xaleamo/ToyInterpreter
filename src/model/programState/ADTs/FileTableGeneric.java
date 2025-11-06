@@ -4,10 +4,11 @@ import myExceptions.MyException;
 import myExceptions.ProgramStateException;
 
 import java.util.Hashtable;
+import java.util.Map;
 
 public class FileTableGeneric<K,V> implements IFileTableGeneric<K,V>{
 
-    Hashtable<K,V> table=new Hashtable<>();
+    protected Hashtable<K,V> table=new Hashtable<>();
 
     /**
      *
@@ -37,5 +38,14 @@ public class FileTableGeneric<K,V> implements IFileTableGeneric<K,V>{
         V v= table.get(k);
         if(v==null) throw new ProgramStateException("No such key exists.");
         return v;
+    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(Map.Entry<K,V> e:table.entrySet()){
+            sb.append(e.getKey().toString()).append(" -> ").append(e.getValue().toString());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

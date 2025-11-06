@@ -7,6 +7,9 @@ public class IntType implements Type{
 //?? static? there is no difference between type classes
 
     @Override
+    public IntType clone() {return new IntType();}
+
+    @Override
     public Value defaultValue(){
         return new IntValue(0);
     }

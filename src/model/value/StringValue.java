@@ -10,6 +10,11 @@ public class StringValue implements Value {
         this.value = value;
     }
 
+    @Override
+    public StringValue clone(){
+        return new StringValue(value);
+    }
+
     public String getValue(){return value;}
     public void setValue(String val){this.value = val;}
 

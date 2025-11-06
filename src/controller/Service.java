@@ -27,10 +27,11 @@ public class Service {
     }
 
     public void printProgramState(){
-        System.out.println(state.toString());
+        System.out.println(state.toString("color"));
     }
 
     public void executeAll(){
+        repo.reloadProgram();
         printProgramState();
         repo.logPrgStateExec();
         while(!state.getExecutionStack().isEmpty()){

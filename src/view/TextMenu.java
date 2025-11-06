@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-//TODO deepcopy
+
 public class TextMenu {
     private Map<String, Command> commands;
 

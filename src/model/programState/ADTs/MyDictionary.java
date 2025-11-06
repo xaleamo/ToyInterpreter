@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class MyDictionary<K,V> implements MyIDictionary<K,V>{
 
-    private HashMap<K,V> map=new HashMap<>();
+    protected HashMap<K,V> map=new HashMap<>();
 
     @Override
     public  V remove(K k) {

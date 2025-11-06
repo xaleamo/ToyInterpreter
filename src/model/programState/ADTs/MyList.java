@@ -5,7 +5,7 @@ import myExceptions.ProgramStateException;
 import java.util.ArrayList;
 
 public class MyList<T> implements MyIList<T>{
-    private ArrayList<T> list=new ArrayList<>();
+    protected ArrayList<T> list=new ArrayList<>();
 
     @Override
     public void add(T v) {

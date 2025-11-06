@@ -18,6 +18,8 @@ public class CloseRFile implements Statement{
         this.expr=expr;
     }
 
+    @Override
+    public CloseRFile clone() {return new CloseRFile(expr.clone());}
 
     @Override
     public ProgramState execute(ProgramState ps) throws ProgramStateException, ExpressionException {

@@ -14,6 +14,10 @@ public class AssignStatement implements Statement {
         this.id = id;
         this.expr = expr;
     }
+    @Override
+    public AssignStatement clone(){
+        return new AssignStatement(id.clone(), expr.clone());
+    }
 
     @Override
     public ProgramState execute(ProgramState ps) {

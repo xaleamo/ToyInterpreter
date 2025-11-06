@@ -5,6 +5,9 @@ import model.value.StringValue;
 public class StringType implements Type {
 
     @Override
+    public StringType clone() {return new StringType();}
+
+    @Override
     public StringValue defaultValue() {
         return new StringValue("default");
     }

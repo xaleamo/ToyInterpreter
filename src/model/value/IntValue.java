@@ -7,6 +7,12 @@ public class IntValue implements Value{
     public IntValue(int val){
         this.value = val;
     }
+
+    @Override
+    public IntValue clone(){
+        return new IntValue(value);
+    }
+
     public int getValue(){return value;}
     public void setValue(int val){this.value = val;}
 

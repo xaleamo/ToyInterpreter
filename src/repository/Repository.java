@@ -7,7 +7,6 @@ import model.programState.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Repository implements IRepository {
     private ArrayList<ProgramState> programState = new ArrayList<ProgramState>();
@@ -38,9 +37,9 @@ public class Repository implements IRepository {
 
     @Override
     public void logPrgStateExec() {
-        ProgramState ps = getCrtProgram();
+        ProgramState ps = null;
         try {
-            if (ps == null) ps = programState.getFirst();
+            ps = programState.getFirst();
         }catch(NoSuchElementException e){
             throw new RepositoryException("Program does not exist.");
         }
@@ -59,10 +58,8 @@ public class Repository implements IRepository {
         }
     }
 
-    private void readLogFilePath(){//should move in UI
-        System.out.println("Enter Log File Path");
-        Scanner sc = new Scanner(System.in);
-        logFilePath= sc.nextLine();
+    @Override
+    public void reloadProgram(){
+        programState.getFirst().reload();
     }
-
 }

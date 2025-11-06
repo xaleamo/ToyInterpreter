@@ -17,6 +17,9 @@ public class IfStatement implements Statement {
     }
 
     @Override
+    public IfStatement clone() {return new IfStatement(condExpr.clone(), thenStatement.clone(), this.elseStatement.clone());}
+
+    @Override
     public ProgramState execute(ProgramState ps) {
         Value exprVal= condExpr.eval(ps.getSymTable());
         if(exprVal.getType().equals(new BoolType()))//vs is  instance of

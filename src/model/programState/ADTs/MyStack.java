@@ -5,9 +5,10 @@ import myExceptions.ProgramStateException;
 import java.util.EmptyStackException;
 import java.util.LinkedList;
 
+
 public class MyStack<T> implements MyIStack<T>{
-    //I need getAll
     protected LinkedList<T> stack=new LinkedList<>();//Linked list
+
 
     @Override
     public T pop(){

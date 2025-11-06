@@ -5,6 +5,9 @@ public class Id {
     public Id(String id) {
         this.id = id;
     }
+    @Override
+    public Id clone(){ return new Id(this.id);}
+
     public String getId() {return id;}
 
     @Override

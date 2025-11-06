@@ -9,6 +9,10 @@ public class CompStatement implements Statement {
         this.stmt1 = stmt1;
         this.stmt2 = stmt2;
     }
+
+    @Override
+    public CompStatement clone() {return new CompStatement(this.stmt1.clone(), this.stmt2.clone());}
+
     @Override
     public ProgramState execute(ProgramState ps) {
         ExecutionStack execStack=ps.getExecutionStack();
@@ -21,6 +25,6 @@ public class CompStatement implements Statement {
 
     @Override
     public String toString(){
-        return stmt1.toString()+"\n"+stmt2.toString();
+        return stmt1.toString()+"\n"+stmt2.toString()+';';//DELETE ';' for 'normal' printing.
     }
 }
