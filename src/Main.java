@@ -1,21 +1,21 @@
-import Controller.Service;
-import Model.Expression.*;
-import Model.ProgramState.*;
-import Model.Statement.*;
-import Model.Type.*;
-import Model.Value.*;
-import Repository.Repository;
-import View.UI;
+import controller.Service;
+import model.expression.*;
+import model.programState.*;
+import model.statement.*;
+import model.type.*;
+import model.value.*;
+import repository.Repository;
+import view.TextMenu;
 
 
 void main() {
     Repository repo = new Repository();
     Service service = new Service(repo);
-    UI ui = new UI(service);
+    TextMenu textMenu = new TextMenu(service);
 
     addPredefinedPrograms(repo);
 
-    ui.run();
+    textMenu.run();
 }
 
 private void addPredefinedPrograms(Repository repo) {
