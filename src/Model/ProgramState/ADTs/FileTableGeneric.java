@@ -14,7 +14,7 @@ public class FileTableGeneric<K,V> implements IFileTableGeneric<K,V>{
      * @param k key
      * @param v value
      * @return previous value or null if key did not exist
-     * @throws
+     * @throws MyException if k or v are null
      */
     @Override
     public V add(K k,V v) {

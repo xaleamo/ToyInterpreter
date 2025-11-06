@@ -1,12 +1,12 @@
 package Repository;
 
 import MyExceptions.FileException;
-import MyExceptions.ProgramStateException;
 import MyExceptions.RepositoryException;
 import Model.ProgramState.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Repository implements IRepository {
@@ -18,16 +18,15 @@ public class Repository implements IRepository {
 
     /**
      *
-     * @param i index
      * @return corresponding ProgramState
      * @throws RepositoryException if index is out of bounds/program does not exist
      */
     @Override
-    public ProgramState getCrtProgram(int i) {
+    public ProgramState getCrtProgram() {
         try{
-            return programState.get(i);
+            return programState.getFirst();
         }
-        catch(IndexOutOfBoundsException e){
+        catch(NoSuchElementException e){
             throw new RepositoryException("Program does not exist.");
         }
     }
@@ -38,6 +37,12 @@ public class Repository implements IRepository {
 
     @Override
     public void logPrgStateExec(ProgramState ps) {
+        try {
+            if (ps == null) ps = programState.getFirst();
+        }catch(NoSuchElementException e){
+            throw new RepositoryException("Program does not exist.");
+        }
+
         PrintWriter pw=null;
         try {
             pw = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));//creates new file if one is not found

@@ -15,14 +15,14 @@ public class Service {
 
     public void setDisplayFlag(boolean b) {displayFlag = b;}
 
-    /**
-     * Sets the program state of the service to the <i>i</i>th program state in repository <i>repo</i>
-     * @param i integer >=0
-     * @throws MyExceptions.RepositoryException if program <i>i</i> does not exist (indexing starts from 0)
-     */
-    public void setProgramState(int i) {
-        this.state=repo.getCrtProgram(i);
-    }
+//    /**
+//     * Sets the program state of the service to the <i>i</i>th program state in repository <i>repo</i>
+//     * @param i integer >=0
+//     * @throws MyExceptions.RepositoryException if program <i>i</i> does not exist (indexing starts from 0)
+//     */
+//    public void setProgramState(int i) {
+//        this.state=repo.getCrtProgram();
+//    }
 
     /**
      * Executes the statement at the top of the <i>ExecutionStack</i> of <i>state</i>.
@@ -39,10 +39,10 @@ public class Service {
 
     public void executeAll(){
         printProgramState();
-        repo.logPrgStateExec(state);
+        repo.logPrgStateExec(null);
         while(!state.getExecutionStack().isEmpty()){
             executeOneStep();
-            repo.logPrgStateExec(state);
+            repo.logPrgStateExec(null);
             if(displayFlag){
                 String s=state.toString();
                 System.out.println(s);
