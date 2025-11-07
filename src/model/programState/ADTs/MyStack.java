@@ -4,6 +4,7 @@ import myExceptions.ProgramStateException;
 
 import java.util.EmptyStackException;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 
 public class MyStack<T> implements MyIStack<T>{
@@ -16,7 +17,7 @@ public class MyStack<T> implements MyIStack<T>{
         {
             return stack.pop();
         }
-        catch (EmptyStackException e) {
+        catch (NoSuchElementException e) {
              throw new ProgramStateException("Empty Execution Stack");
         }
     }
@@ -36,4 +37,12 @@ public class MyStack<T> implements MyIStack<T>{
         return rez.toString();
     }
 
+//    @Override
+//    public Object clone() throws CloneNotSupportedException {
+//        MyStack<T> ret = (MyStack<T>) super.clone();
+//        for (T v:stack){
+//            ret.push(v.clone());
+//        }
+//        return ret;
+//    }
 }

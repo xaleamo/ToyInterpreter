@@ -21,7 +21,7 @@ public class Service {
      * Executes the statement at the top of the <i>ExecutionStack</i> of <i>state</i>.
      * @throws myExceptions.ProgramStateException if ExecutionStack is empty.
      */
-    public void executeOneStep(){
+    public void executeOneStep(){//this does not log stuff
         Statement s = state.getExecutionStack().pop();
         s.execute(state);
     }
@@ -30,8 +30,7 @@ public class Service {
         System.out.println(state.toString("color"));
     }
 
-    public void executeAll(){
-        repo.reloadProgram();
+    public void executeUntilEnd(){
         printProgramState();
         repo.logPrgStateExec();
         while(!state.getExecutionStack().isEmpty()){
@@ -39,6 +38,10 @@ public class Service {
             repo.logPrgStateExec();
             if(displayFlag) printProgramState();
         }
+    }
+    public void executeAll(){//from start
+        repo.reloadProgram();
+        executeUntilEnd();
     }
 
 

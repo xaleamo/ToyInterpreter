@@ -33,7 +33,7 @@ public class AssignStatement implements Statement {
             } else throw new StatementException("Lookup mismatch type");
 
         }
-        else throw new UndeclaredVariable("Error: variable"+id.toString()+"is not declared");
+        else throw new UndeclaredVariable("Error: variable "+id.toString()+" is not declared");
         return ps;
     }
 
