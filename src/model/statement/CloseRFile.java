@@ -1,13 +1,13 @@
 package model.statement;
 
 import model.expression.Expression;
-import model.programState.ProgramState;
+import model.program_state.ProgramState;
 import model.type.StringType;
 import model.value.StringValue;
 import model.value.Value;
-import myExceptions.ExpressionException;
-import myExceptions.FileException;
-import myExceptions.ProgramStateException;
+import my_exceptions.ExpressionException;
+import my_exceptions.FileException;
+import my_exceptions.ProgramStateException;
 
 import java.io.BufferedReader;
 import java.io.IOException;

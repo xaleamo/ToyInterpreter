@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.programState.ProgramState;
+import model.program_state.ProgramState;
 
 public class Nop implements Statement {
 

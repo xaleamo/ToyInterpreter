@@ -1,6 +1,6 @@
-package model.programState;
+package model.program_state;
 
-import model.programState.ADTs.MyDictionary;
+import model.program_state.ADTs.MyDictionary;
 import model.value.Id;
 import model.value.Value;
 

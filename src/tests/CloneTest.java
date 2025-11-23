@@ -1,22 +1,19 @@
 package tests;
 
 import controller.Service;
-import model.expression.ArithExpr;
 import model.expression.ValueExpr;
 import model.expression.VariableExpr;
-import model.programState.ExecutionStack;
-import model.programState.Output;
-import model.programState.ProgramState;
-import model.programState.SymTable;
+import model.program_state.ExecutionStack;
+import model.program_state.Output;
+import model.program_state.ProgramState;
+import model.program_state.SymTable;
 import model.statement.*;
 import model.type.IntType;
 import model.type.StringType;
 import model.value.Id;
 import model.value.StringValue;
-import myExceptions.ProgramStateException;
+import my_exceptions.ProgramStateException;
 import repository.Repository;
-
-import java.util.ArrayList;
 
 public class CloneTest {
     public static void main(){

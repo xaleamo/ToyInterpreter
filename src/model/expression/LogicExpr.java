@@ -1,7 +1,7 @@
 package model.expression;
 
-import myExceptions.ExpressionException;
-import model.programState.SymTable;
+import my_exceptions.ExpressionException;
+import model.program_state.SymTable;
 import model.type.BoolType;
 import model.value.BoolValue;
 import model.value.Value;

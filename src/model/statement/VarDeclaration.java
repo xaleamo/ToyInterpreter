@@ -1,8 +1,8 @@
 package model.statement;
 
-import myExceptions.ProgramStateException;
-import model.programState.ProgramState;
-import model.programState.SymTable;
+import my_exceptions.ProgramStateException;
+import model.program_state.ProgramState;
+import model.program_state.SymTable;
 import model.type.*;
 import model.value.*;
 

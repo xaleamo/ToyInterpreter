@@ -1,9 +1,9 @@
 package model.expression;
 
-import myExceptions.DivisionByZero;
-import myExceptions.ExpressionException;
+import my_exceptions.DivisionByZero;
+import my_exceptions.ExpressionException;
 
-import model.programState.SymTable;
+import model.program_state.SymTable;
 import model.value.*;
 import model.type.IntType;
 

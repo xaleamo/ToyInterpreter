@@ -4,7 +4,8 @@ import model.type.StringType;
 import model.type.Type;
 
 public class StringValue implements Value {
-    String value;
+    private static final StringType stringType = new StringType();
+    private String value;
 
     public StringValue(String value){
         this.value = value;
@@ -14,13 +15,23 @@ public class StringValue implements Value {
     public StringValue clone(){
         return new StringValue(value);
     }
+//    @Override
+//    public Object clone(){
+//        try {
+//            StringValue ov = (StringValue) super.clone();//copies on surface level all of object
+//            return ov;
+//        }
+//        catch (CloneNotSupportedException e) {
+//            throw new MyException("StringValue.clone() error:"+e.getMessage());
+//        }
+//    }
 
     public String getValue(){return value;}
     public void setValue(String val){this.value = val;}
 
     @Override
     public Type getType(){
-        return new StringType();
+        return stringType;
     }
     @Override
     public String toString(){return value;}

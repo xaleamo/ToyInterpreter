@@ -1,13 +1,12 @@
-package model.programState;
+package model.program_state;
 
-import model.programState.ADTs.FileTableGeneric;
+import model.program_state.ADTs.FileTableGeneric;
 import model.value.StringValue;
-import myExceptions.FileException;
+import my_exceptions.FileException;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Map;
 
 public class FileTable extends FileTableGeneric<StringValue, BufferedReader> implements Cloneable {
 

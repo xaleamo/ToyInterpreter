@@ -1,4 +1,4 @@
-package model.programState;
+package model.program_state;
 
 
 public class ProgramState implements Cloneable {

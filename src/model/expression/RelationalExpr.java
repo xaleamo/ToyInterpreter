@@ -1,11 +1,11 @@
 package model.expression;
 
-import model.programState.SymTable;
+import model.program_state.SymTable;
 import model.type.IntType;
 import model.value.BoolValue;
 import model.value.IntValue;
 import model.value.Value;
-import myExceptions.ExpressionException;
+import my_exceptions.ExpressionException;
 
 public class RelationalExpr implements Expression {
     public enum Operator{

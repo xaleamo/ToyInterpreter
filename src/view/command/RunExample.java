@@ -1,7 +1,7 @@
 package view.command;
 
 import controller.Service;
-import myExceptions.MyException;
+import my_exceptions.MyException;
 
 public class RunExample extends Command {
     Service service;

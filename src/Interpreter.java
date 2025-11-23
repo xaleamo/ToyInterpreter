@@ -1,5 +1,5 @@
 import controller.Service;
-import model.programState.*;
+import model.program_state.*;
 import model.statement.*;
 import model.type.*;
 import model.value.*;

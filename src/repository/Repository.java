@@ -1,8 +1,8 @@
 package repository;
 
-import myExceptions.FileException;
-import myExceptions.RepositoryException;
-import model.programState.*;
+import my_exceptions.FileException;
+import my_exceptions.RepositoryException;
+import model.program_state.*;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.programState.ProgramState;
+import model.program_state.ProgramState;
 
 public interface Statement extends Cloneable {
     ProgramState execute(ProgramState ps);

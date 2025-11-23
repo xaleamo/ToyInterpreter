@@ -1,4 +1,4 @@
-package model.programState.ADTs;
+package model.program_state.ADTs;
 
 public interface IFileTableGeneric<K,V> {
     V add(K k,V v);

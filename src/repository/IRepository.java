@@ -1,6 +1,6 @@
 package repository;
 
-import model.programState.ProgramState;
+import model.program_state.ProgramState;
 
 public interface IRepository {
     ProgramState getCrtProgram();

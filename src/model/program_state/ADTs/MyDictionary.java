@@ -1,4 +1,4 @@
-package model.programState.ADTs;
+package model.program_state.ADTs;
 
 import java.util.HashMap;
 import java.util.Map;

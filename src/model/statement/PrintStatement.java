@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.programState.ProgramState;
+import model.program_state.ProgramState;
 import model.expression.Expression;
 
 public class PrintStatement implements Statement {

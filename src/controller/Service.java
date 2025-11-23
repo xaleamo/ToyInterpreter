@@ -1,6 +1,6 @@
 package controller;
 
-import model.programState.ProgramState;
+import model.program_state.ProgramState;
 import model.statement.Statement;
 import repository.IRepository;
 
@@ -19,7 +19,7 @@ public class Service {
 
     /**
      * Executes the statement at the top of the <i>ExecutionStack</i> of <i>state</i>.
-     * @throws myExceptions.ProgramStateException if ExecutionStack is empty.
+     * @throws my_exceptions.ProgramStateException if ExecutionStack is empty.
      */
     public void executeOneStep(){//this does not log stuff
         Statement s = state.getExecutionStack().pop();

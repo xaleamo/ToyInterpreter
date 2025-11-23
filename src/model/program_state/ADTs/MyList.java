@@ -1,6 +1,6 @@
-package model.programState.ADTs;
+package model.program_state.ADTs;
 
-import myExceptions.ProgramStateException;
+import my_exceptions.ProgramStateException;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class MyList<T> implements MyIList<T>{
      Removes the element at the specified position in this list. Shifts any subsequent elements to the left (subtracts one from their indices).
      @param index the index of the element to be removed
      @return the element that was removed from the list
-     @throws myExceptions.ProgramStateException if index is out of bounds
+     @throws my_exceptions.ProgramStateException if index is out of bounds
      */
     @Override
     public T remove(int index) {

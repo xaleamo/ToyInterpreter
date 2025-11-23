@@ -1,7 +1,5 @@
 package view;
 
-import controller.Service;
-import myExceptions.RepositoryException;
 import view.command.Command;
 
 import java.util.HashMap;

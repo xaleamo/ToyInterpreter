@@ -2,6 +2,8 @@ package model.value;
 import model.type.*;
 
 public class IntValue implements Value{
+    private static final IntType intType = new IntType();
+
     private int value;
 
     public IntValue(int val){
@@ -18,8 +20,10 @@ public class IntValue implements Value{
 
     @Override
     public String toString(){return Integer.toString(value);}
+
     @Override
-    public Type getType(){return new IntType(); }
+    public Type getType(){return intType; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

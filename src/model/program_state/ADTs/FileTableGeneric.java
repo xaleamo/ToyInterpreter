@@ -1,7 +1,7 @@
-package model.programState.ADTs;
+package model.program_state.ADTs;
 
-import myExceptions.MyException;
-import myExceptions.ProgramStateException;
+import my_exceptions.MyException;
+import my_exceptions.ProgramStateException;
 
 import java.util.Hashtable;
 import java.util.Map;

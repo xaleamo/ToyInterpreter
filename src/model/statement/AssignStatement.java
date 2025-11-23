@@ -1,9 +1,9 @@
 package model.statement;
 
-import myExceptions.*;
+import my_exceptions.*;
 import model.expression.Expression;
-import model.programState.ProgramState;
-import model.programState.SymTable;
+import model.program_state.ProgramState;
+import model.program_state.SymTable;
 import model.value.Id;
 import model.value.Value;
 

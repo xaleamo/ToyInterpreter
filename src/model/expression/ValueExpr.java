@@ -1,6 +1,6 @@
 package model.expression;
 
-import model.programState.SymTable;
+import model.program_state.SymTable;
 import model.value.Value;
 
 public class ValueExpr implements Expression {

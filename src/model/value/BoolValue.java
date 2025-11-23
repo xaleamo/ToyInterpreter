@@ -4,6 +4,8 @@ import model.type.BoolType;
 import model.type.Type;
 
 public class BoolValue implements Value{
+    private static final BoolType boolType = new BoolType();
+
     private boolean value;
 
     public BoolValue(boolean val){
@@ -19,7 +21,7 @@ public class BoolValue implements Value{
     @Override
     public String toString(){return Boolean.toString(value);}
     @Override
-    public Type getType(){return new BoolType(); }
+    public Type getType(){return boolType; }
 
     @Override
     public boolean equals(Object o) {

@@ -1,6 +1,6 @@
-package model.programState;
+package model.program_state;
 
-import model.programState.ADTs.MyList;
+import model.program_state.ADTs.MyList;
 import model.value.Value;
 
 public class Output extends MyList<Value> {

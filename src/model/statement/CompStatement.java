@@ -1,7 +1,7 @@
 package model.statement;
 
-import model.programState.ExecutionStack;
-import model.programState.ProgramState;
+import model.program_state.ExecutionStack;
+import model.program_state.ProgramState;
 
 public class CompStatement implements Statement {
     Statement stmt1,stmt2;

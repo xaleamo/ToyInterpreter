@@ -1,4 +1,4 @@
-package model.programState.ADTs;
+package model.program_state.ADTs;
 
 public interface MyIDictionary <K,V>{
     public V remove(K k);

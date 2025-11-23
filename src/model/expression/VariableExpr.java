@@ -1,9 +1,9 @@
 package model.expression;
 
-import model.programState.SymTable;
+import model.program_state.SymTable;
 import model.value.Id;
 import model.value.Value;
-import myExceptions.UndeclaredVariable;
+import my_exceptions.UndeclaredVariable;
 
 public class VariableExpr implements Expression {
     private final Id id;
@@ -17,7 +17,7 @@ public class VariableExpr implements Expression {
     /**
      *Looks up the value of the <b>id</b>
      * @param tbl Symbol table
-     * @throws myExceptions.ProgramStateException if <b>id</b> doesn't exist in tbl
+     * @throws my_exceptions.ProgramStateException if <b>id</b> doesn't exist in tbl
      */
     @Override
     public Value eval(SymTable tbl){

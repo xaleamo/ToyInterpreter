@@ -1,8 +1,7 @@
-package model.programState.ADTs;
+package model.program_state.ADTs;
 
-import myExceptions.ProgramStateException;
+import my_exceptions.ProgramStateException;
 
-import java.util.EmptyStackException;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
