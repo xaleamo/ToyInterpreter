@@ -12,11 +12,13 @@ public class RefValue implements Value {
         this.locationType = locationType;
     }
 
+    //getters
     public int getAddress(){return address;}
 
     @Override
     public Type getType() {return new RefType(locationType);}
 
+    //others
     @Override
     public Value clone(){
         throw new UnsupportedOperationException("Not supported yet.");

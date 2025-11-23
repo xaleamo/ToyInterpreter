@@ -27,7 +27,7 @@ public class StringValue implements Value {
 //    }
 
     public String getValue(){return value;}
-    public void setValue(String val){this.value = val;}
+    //public void setValue(String val){this.value = val;}
 
     @Override
     public Type getType(){

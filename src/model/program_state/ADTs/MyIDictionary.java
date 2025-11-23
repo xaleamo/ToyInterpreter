@@ -1,6 +1,10 @@
 package model.program_state.ADTs;
 
 public interface MyIDictionary <K,V>{
-    public V remove(K k);
-    public V add(K k, V v);
+    V remove(K k);
+    V add(K k, V v);
+
+    boolean isDefined(K k);
+
+    V lookUp(K k);
 }

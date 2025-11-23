@@ -29,6 +29,7 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V>{
         return map.put(k,v);
     }
 
+    @Override
     public boolean isDefined(K k) {
         return map.containsKey(k);
     }
@@ -39,6 +40,7 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V>{
      
 
      */
+    @Override
     public V lookUp(K k) {
         return map.get(k);
     }

@@ -16,7 +16,7 @@ public class IntValue implements Value{
     }
 
     public int getValue(){return value;}
-    public void setValue(int val){this.value = val;}
+    //public void setValue(int val){this.value = val;}
 
     @Override
     public String toString(){return Integer.toString(value);}
