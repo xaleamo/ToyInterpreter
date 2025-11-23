@@ -21,7 +21,7 @@ public class IfStatement implements Statement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        Value exprVal= condExpr.eval(ps.getSymTable());
+        Value exprVal= condExpr.eval(ps.getSymTable(), ps.getHeap());
         if(exprVal.getType().equals(new BoolType()))//vs is  instance of
         {
             BoolValue exprBVal=(BoolValue)exprVal;

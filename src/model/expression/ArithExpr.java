@@ -1,5 +1,6 @@
 package model.expression;
 
+import model.program_state.Heap;
 import my_exceptions.DivisionByZero;
 import my_exceptions.ExpressionException;
 
@@ -28,11 +29,11 @@ public class ArithExpr implements Expression {
     public ArithExpr clone() {return new ArithExpr(op1.clone(), op2.clone(), operator);}
 
     @Override
-    public Value eval(SymTable tbl){
+    public Value eval(SymTable tbl, Heap heap){
         Value v1,v2;
-        v1=op1.eval(tbl);
+        v1=op1.eval(tbl, heap);
         if(v1.getType().equals(new IntType())){
-            v2=op2.eval(tbl);
+            v2=op2.eval(tbl, heap);
             if(v2.getType().equals(new IntType())){
                 int n1,n2;
                 n1=((IntValue)v1).getValue();

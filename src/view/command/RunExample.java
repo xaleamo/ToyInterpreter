@@ -1,16 +1,11 @@
 package view.command;
 
 import controller.Service;
-import model.program_state.ExecutionStack;
-import model.program_state.Output;
-import model.program_state.ProgramState;
-import model.program_state.SymTable;
+import model.program_state.*;
 import model.statement.Statement;
 import my_exceptions.MyException;
 import repository.IRepository;
 import repository.Repository;
-
-import java.util.concurrent.Executor;
 
 public class RunExample extends Command {
     private static int count=0;
@@ -24,7 +19,7 @@ public class RunExample extends Command {
         //construct program state, repo and service dynamically
         ExecutionStack executionStack = new ExecutionStack();
         executionStack.push(statement);
-        ProgramState prg=new ProgramState(executionStack,new SymTable(),new Output());
+        ProgramState prg=new ProgramState(executionStack,new SymTable(),new Output(), new Heap());
 
         String filepath="files/log";
         count++;

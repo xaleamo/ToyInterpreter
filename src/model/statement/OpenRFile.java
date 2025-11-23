@@ -24,7 +24,7 @@ public class OpenRFile implements Statement{
 
     @Override
     public ProgramState execute(ProgramState ps) throws ProgramStateException, ExpressionException {
-        Value val=expr.eval(ps.getSymTable());
+        Value val=expr.eval(ps.getSymTable(), ps.getHeap());
         if(!val.getType().equals(new StringType())) throw new ExpressionException("Type Mismatch");
         StringValue value=(StringValue)val;
         if(ps.getFileTable().isDefined(value)) throw new FileException("File is already open.");

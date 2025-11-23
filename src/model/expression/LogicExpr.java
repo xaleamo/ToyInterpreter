@@ -1,5 +1,6 @@
 package model.expression;
 
+import model.program_state.Heap;
 import my_exceptions.ExpressionException;
 import model.program_state.SymTable;
 import model.type.BoolType;
@@ -24,10 +25,10 @@ public class LogicExpr implements Expression {
     public LogicExpr clone() {return new LogicExpr(e1.clone(),op,e2.clone());}
 
     @Override
-    public Value eval(SymTable tbl){
-        Value v1 = e1.eval(tbl);
+    public Value eval(SymTable tbl, Heap heap){
+        Value v1 = e1.eval(tbl,heap );
         if(v1.getType().equals(new BoolType())){//is instance of BoolValue
-            Value v2 = e2.eval(tbl);
+            Value v2 = e2.eval(tbl,heap );
             if(v2.getType().equals(new BoolType())){
                 boolean bv1 = ((BoolValue)v1).getValue();
                 boolean bv2 = ((BoolValue)v2).getValue();

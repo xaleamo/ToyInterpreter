@@ -9,6 +9,7 @@ import view.TextMenu;
 import view.command.*;
 
 import javax.swing.plaf.nimbus.State;
+import java.sql.Ref;
 
 public class Interpreter {
     public static void main(String[] args) {
@@ -23,6 +24,9 @@ public class Interpreter {
         menu.addCommand(new RunExample("run p4","run (faulty) program 4",FaultyProgram1()));
         menu.addCommand(new RunExample("run p5","run (faulty) program 5",FaultyProgram2()));
         menu.addCommand(new RunExample("run p6","run file program 1",FileProgram1()));
+        menu.addCommand(new RunExample("run p7","run (alloc) heap program 1",HeapProgram1()));
+        menu.addCommand(new RunExample("run p8","run (read) heap program 2",HeapProgram2()));
+        menu.addCommand(new RunExample("run p9","run (write) heap program 3",HeapProgram3()));
 
         menu.run();
 
@@ -163,5 +167,97 @@ public class Interpreter {
             )
     );
 }
+
+    ///ALLOC TEST
+    /// Ref int v;new(v,20);Ref Ref int a; new(a,v);print(v);print(a)
+    private static Statement HeapProgram1(){
+        return new CompStatement(
+                new VarDeclaration(new RefType(new IntType()),new Id("v")),
+                new CompStatement(
+                        new HeapAlloc(new Id("v"),new ValueExpr(new IntValue(20))),
+                        new CompStatement(
+                                new VarDeclaration(new RefType(new RefType(new IntType())),new Id("a")),
+                                new CompStatement(
+                                        new HeapAlloc(new Id("a"),new VariableExpr(new Id("v"))),
+                                        new CompStatement(
+                                                new PrintStatement(new VariableExpr(new Id("v"))),
+                                                new PrintStatement(new VariableExpr(new Id("a")))
+                                        )
+                                )
+                        )
+                )
+        );
+    }
+    /// READ HEAP TEST
+    ////Ref int v;new(v,20);Ref Ref int a; new(a,v);print(rH(v));print(rH(rH(a))+5)
+    private static Statement HeapProgram2(){
+        return new CompStatement(
+                new VarDeclaration(new RefType(new IntType()), new Id("v")),
+                new CompStatement(
+                        new HeapAlloc(
+                                new Id("v"),
+                                new ValueExpr(new IntValue(20))
+                        ),
+                        new CompStatement(
+                                new VarDeclaration(new RefType(new RefType(new IntType())), new Id("a")),
+                                new CompStatement(
+                                        new HeapAlloc(
+                                                new Id("a"),
+                                                new VariableExpr(new Id("v"))
+                                        ),
+                                        new CompStatement(
+                                                new PrintStatement(
+                                                        new ReadHeap(new VariableExpr(new Id("v")))
+                                                ),
+                                                new PrintStatement(
+                                                        new ArithExpr(
+                                                                new ReadHeap(
+                                                                        new ReadHeap(new VariableExpr(new Id("a")))
+                                                                ),
+                                                                new ValueExpr(new IntValue(5)),
+                                                                ArithExpr.Operator.ADD
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+    }
+
+    /// WRITE HEAP TEST
+    /// Ref int v;new(v,20);print(rH(v)); wH(v,30);print(rH(v)+5);
+    public static Statement HeapProgram3(){
+        return new CompStatement(
+                new VarDeclaration(new RefType(new IntType()), new Id("v")),
+                new CompStatement(
+                        new HeapAlloc(
+                                new Id("v"),
+                                new ValueExpr(new IntValue(20))
+                        ),
+                        new CompStatement(
+                                new PrintStatement(
+                                        new ReadHeap(new VariableExpr(new Id("v")))
+                                ),
+                                new CompStatement(
+                                        new WriteHeap(
+                                                new Id("v"),
+                                                new ValueExpr(new IntValue(30))
+                                        ),
+                                        new PrintStatement(
+                                                new ArithExpr(
+                                                        new ReadHeap(new VariableExpr(new Id("v"))),
+                                                        new ValueExpr(new IntValue(5)),
+                                                        ArithExpr.Operator.ADD
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+    }
+
 
 }

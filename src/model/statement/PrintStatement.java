@@ -18,7 +18,7 @@ public class PrintStatement implements Statement {
 
     @Override
     public ProgramState execute(ProgramState ps) {
-        ps.getOutput().add(expr.eval(ps.getSymTable()));
+        ps.getOutput().add(expr.eval(ps.getSymTable(), ps.getHeap()));
         return ps;
     }
 }

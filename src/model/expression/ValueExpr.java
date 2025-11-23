@@ -1,5 +1,6 @@
 package model.expression;
 
+import model.program_state.Heap;
 import model.program_state.SymTable;
 import model.value.Value;
 
@@ -12,7 +13,7 @@ public class ValueExpr implements Expression {
     @Override
     public ValueExpr clone() {return new ValueExpr(v.clone());}
     @Override
-    public Value eval(SymTable tbl){
+    public Value eval(SymTable tbl, Heap heap){
         return v;
     }
 

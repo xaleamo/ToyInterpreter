@@ -26,7 +26,7 @@ public class ReadFile implements Statement {
     @Override
     public ProgramState execute(ProgramState ps) {
         //check expr value and type
-        Value val=expr.eval(ps.getSymTable());
+        Value val=expr.eval(ps.getSymTable(), ps.getHeap());
         if(!val.getType().equals(new StringType())) throw new ExpressionException("Type Mismatch");
         StringValue value=(StringValue)val;
 

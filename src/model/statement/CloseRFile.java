@@ -23,7 +23,7 @@ public class CloseRFile implements Statement{
 
     @Override
     public ProgramState execute(ProgramState ps) throws ProgramStateException, ExpressionException {
-        Value val=expr.eval(ps.getSymTable());
+        Value val=expr.eval(ps.getSymTable(), ps.getHeap());
         if(!val.getType().equals(new StringType())) throw new ExpressionException("Type Mismatch");
         StringValue key=(StringValue)val;
         if(!ps.getFileTable().isDefined(key)) throw new FileException("File is not open.");

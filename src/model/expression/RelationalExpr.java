@@ -1,5 +1,6 @@
 package model.expression;
 
+import model.program_state.Heap;
 import model.program_state.SymTable;
 import model.type.IntType;
 import model.value.BoolValue;
@@ -26,9 +27,9 @@ public class RelationalExpr implements Expression {
     public RelationalExpr clone() {return new RelationalExpr(expr1.clone(), op, expr2.clone());}
 
     @Override
-    public Value eval(SymTable tbl) {
-        Value v1 = expr1.eval(tbl);
-        Value v2 = expr2.eval(tbl);
+    public Value eval(SymTable tbl, Heap heap) {
+        Value v1 = expr1.eval(tbl, heap);
+        Value v2 = expr2.eval(tbl,heap );
         //if one of them is not IntType
         if(!v1.getType().equals(new IntType())) throw new ExpressionException("First operand is not an integer.");
         if(!v2.getType().equals(new IntType())) throw new ExpressionException("Second operand is not an integer.");

@@ -34,7 +34,7 @@ public class RefType implements Type{
 
     @Override
     public Type clone(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new RefType(inner.clone());
     }
 
 }

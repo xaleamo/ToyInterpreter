@@ -21,7 +21,7 @@ public class RefValue implements Value {
     //others
     @Override
     public Value clone(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new RefValue(address,locationType.clone());
     }
     @Override
     public String toString(){

@@ -3,10 +3,7 @@ package tests;
 import controller.Service;
 import model.expression.ValueExpr;
 import model.expression.VariableExpr;
-import model.program_state.ExecutionStack;
-import model.program_state.Output;
-import model.program_state.ProgramState;
-import model.program_state.SymTable;
+import model.program_state.*;
 import model.statement.*;
 import model.type.IntType;
 import model.type.StringType;
@@ -93,7 +90,7 @@ public class CloneTest {
         ExecutionStack executionStack = new ExecutionStack();
         //executionStack.push(s2);
         executionStack.push(s1);
-        return new ProgramState(executionStack, new SymTable(), new Output());
+        return new ProgramState(executionStack, new SymTable(), new Output(), new Heap());
 
     }
 

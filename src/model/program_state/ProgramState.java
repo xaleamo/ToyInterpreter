@@ -6,23 +6,26 @@ public class ProgramState implements Cloneable {
     SymTable symTable;
     Output output;
     FileTable fileTable;
+    Heap heap;
     ExecutionStack original;
 
-    public ProgramState(ExecutionStack executionStack, SymTable symTable, Output output) {
+    public ProgramState(ExecutionStack executionStack, SymTable symTable, Output output, Heap heap) {
         this.executionStack = executionStack;
         this.symTable = symTable;
         this.output = output;
         this.fileTable = new FileTable();
+        this.heap = heap;
         original = executionStack.clone();
     }
 
     @Override
     public ProgramState clone(){
-        ProgramState newProg= new ProgramState(new ExecutionStack(),new SymTable(),new Output());
+        ProgramState newProg= new ProgramState(new ExecutionStack(),new SymTable(),new Output(), new Heap());
         newProg.executionStack = executionStack.clone();
         newProg.symTable = symTable.clone();
         newProg.output = output.clone();
         newProg.fileTable = fileTable.clone();
+        newProg.heap=heap.clone();
         newProg.original = executionStack.clone();
         return newProg;
     }
@@ -31,10 +34,11 @@ public class ProgramState implements Cloneable {
     public SymTable getSymTable() {return symTable;}
     public Output getOutput() {return output;}
     public FileTable getFileTable() {return fileTable;}
+    public Heap getHeap() {return heap;}
 
-    public void setExecutionStack(ExecutionStack executionStack) {this.executionStack = executionStack;}
-    public void setSymTable(SymTable symTable) {this.symTable = symTable;}
-    public void setOutput(Output output) {this.output = output;}
+//    public void setExecutionStack(ExecutionStack executionStack) {this.executionStack = executionStack;}
+//    public void setSymTable(SymTable symTable) {this.symTable = symTable;}
+//    public void setOutput(Output output) {this.output = output;}
     //public void setFileTable(FileTable fileTable) {this.fileTable = fileTable;}
 
     @Override
@@ -44,6 +48,7 @@ public class ProgramState implements Cloneable {
         str+="Symbol table: \n"+symTable.toString();
         str+="Output list: \n"+output.toString();
         str+="File table: \n"+fileTable.toString();
+        str+="Heap: \n"+heap.toString();
         str+="-------------------------------------------";
         return str;
     }
@@ -54,6 +59,7 @@ public class ProgramState implements Cloneable {
         str+="\033[0;35mSymbol table:\033[0m \n"+symTable.toString()+"\n";
         str+="\033[0;35mOutput list:\033[0m \n"+output.toString();
         str+="\033[0;35mFile table:\033[0m \n"+fileTable.toString();
+        str+="\033[0;35mHeap:\033[0m \n"+heap.toString();
         str+="\033[0;34m-------------------------------------------\033[0m";
         return str;
     }

@@ -22,7 +22,7 @@ public class AssignStatement implements Statement {
     @Override
     public ProgramState execute(ProgramState ps) {
         SymTable tbl = ps.getSymTable();
-        Value val=expr.eval(tbl);
+        Value val=expr.eval(tbl, ps.getHeap());
 
 
         if(tbl.isDefined(id)) {
