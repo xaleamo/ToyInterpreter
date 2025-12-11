@@ -1,10 +1,12 @@
 package model.statement;
 
+import model.program_state.ADTs.MyIDictionary;
 import my_exceptions.ProgramStateException;
 import model.program_state.PrgState;
 import model.program_state.SymTable;
 import model.type.*;
 import model.value.*;
+import my_exceptions.TypeException;
 
 public class VarDeclaration implements Statement {
     Type type;
@@ -15,6 +17,12 @@ public class VarDeclaration implements Statement {
     }
     @Override
     public VarDeclaration clone() {return new VarDeclaration(type.clone(),id.clone());}
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        typeEnv.add(id,type);
+        return typeEnv;
+    }
 
     @Override
     public PrgState execute(PrgState ps) {

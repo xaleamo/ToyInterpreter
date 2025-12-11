@@ -1,13 +1,17 @@
 package model.statement;
 
 import model.expression.Expression;
+import model.program_state.ADTs.MyIDictionary;
 import model.program_state.PrgState;
 import model.type.StringType;
+import model.type.Type;
+import model.value.Id;
 import model.value.StringValue;
 import model.value.Value;
 import my_exceptions.ExpressionException;
 import my_exceptions.FileException;
 import my_exceptions.ProgramStateException;
+import my_exceptions.TypeException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,6 +24,13 @@ public class CloseRFile implements Statement{
 
     @Override
     public CloseRFile clone() {return new CloseRFile(expr.clone());}
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        Type typeExp=expr.typecheck(typeEnv);
+        if(typeExp.equals(new StringType())) return typeEnv;
+        else throw new TypeException("Type mismatch: Expression not of StringType.");
+    }
 
     @Override
     public PrgState execute(PrgState ps) throws ProgramStateException, ExpressionException {

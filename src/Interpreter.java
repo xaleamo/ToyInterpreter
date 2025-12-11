@@ -29,6 +29,7 @@ public class Interpreter {
         menu.addCommand(new RunExample("run p15","run fork program 1",ForkProgram1()));
         menu.addCommand(new RunExample("run p16","run fork program 2",ForkProgram2()));
         menu.addCommand(new RunExample("run p17","run fork program 3",ForkProgram3()));
+        menu.addCommand(new RunExample("run p18","run faulty fork program 1",FaultyForkProgram1()));
 
         menu.run();
 
@@ -622,6 +623,49 @@ public class Interpreter {
                                                         )
                                                 )
                                         )
+                                )
+                        )
+                );
+
+    }
+
+    private static Statement FaultyForkProgram1() {
+        return
+                new CompStatement(
+                        new VarDeclaration(new IntType(),new Id("a")),
+                        new CompStatement(
+                                new VarDeclaration(new IntType(),new Id("b")),
+                                new CompStatement(
+                                        new ForkStatement(
+                                                new CompStatement(
+                                                        new AssignStatement(
+                                                                new Id("a"),
+                                                                new ValueExpr(new IntValue(30))
+                                                        ),
+                                                        new CompStatement(
+                                                                new AssignStatement(
+                                                                        new Id("b"),
+                                                                        new ValueExpr(new IntValue(32))
+                                                                ),
+                                                                new CompStatement(
+                                                                        new PrintStatement(
+                                                                                new VariableExpr(new Id("a"))
+                                                                        ),
+                                                                        new VarDeclaration(new IntType(),new Id("hehe"))
+                                                                )
+                                                        )
+                                                )
+                                        ),
+                                        new CompStatement(
+                                                new CompStatement(
+                                                        new CompStatement(new CompStatement(new Nop(),new Nop()),new Nop()),
+                                                        new PrintStatement(new VariableExpr(new Id("hehe")))
+                                                ),
+                                                new PrintStatement(
+                                                        new VariableExpr(new Id("a"))
+                                                )
+                                        )
+
                                 )
                         )
                 );

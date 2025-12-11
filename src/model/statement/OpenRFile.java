@@ -1,12 +1,15 @@
 package model.statement;
 
 import model.expression.Expression;
+import model.program_state.ADTs.MyIDictionary;
 import model.program_state.PrgState;
 import model.type.StringType;
+import model.type.Type;
 import model.value.*;
 import my_exceptions.ExpressionException;
 import my_exceptions.FileException;
 import my_exceptions.ProgramStateException;
+import my_exceptions.TypeException;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -21,6 +24,13 @@ public class OpenRFile implements Statement{
 
     @Override
     public OpenRFile clone() {return new OpenRFile(expr.clone());}
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        Type typeExp=expr.typecheck(typeEnv);
+        if(typeExp.equals(new StringType())) return typeEnv;
+        else throw new TypeException("Type mismatch: Expression not of StringType.");
+    }
 
     @Override
     public PrgState execute(PrgState ps) throws ProgramStateException, ExpressionException {

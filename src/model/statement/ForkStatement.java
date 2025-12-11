@@ -1,8 +1,12 @@
 package model.statement;
 
+import model.program_state.ADTs.MyIDictionary;
 import model.program_state.ExecutionStack;
 import model.program_state.FileTable;
 import model.program_state.PrgState;
+import model.type.Type;
+import model.value.Id;
+import my_exceptions.TypeException;
 
 public class ForkStatement implements Statement {
     private Statement statement;
@@ -12,6 +16,12 @@ public class ForkStatement implements Statement {
     @Override
     public ForkStatement clone(){
         return new ForkStatement(statement.clone());
+    }
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        statement.typecheck(typeEnv.clone());
+        return typeEnv;
     }
 
     @Override

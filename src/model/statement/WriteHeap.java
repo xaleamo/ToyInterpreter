@@ -1,12 +1,15 @@
 package model.statement;
 
+import model.program_state.ADTs.MyIDictionary;
 import model.program_state.Heap;
 import model.program_state.PrgState;
 import model.program_state.SymTable;
 import model.type.RefType;
+import model.type.Type;
 import model.value.*;
 import model.expression.Expression;
 import my_exceptions.StatementException;
+import my_exceptions.TypeException;
 
 public class WriteHeap implements Statement{
     Id var_name;
@@ -19,6 +22,16 @@ public class WriteHeap implements Statement{
     @Override
     public WriteHeap clone(){
         return new WriteHeap(var_name.clone(),expr.clone());
+    }
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        Type typeV=typeEnv.lookUp(var_name);//even if typeV is null,  it should enter an error branch regardless!=
+        if(typeV==null)throw new TypeException("Variable "+var_name+" not found");
+        Type typeE= expr.typecheck(typeEnv);
+        if(!typeV.equals(new RefType(typeE))) throw new TypeException("WH stmt: type referenced by LHS and type of RHS have different types: "+typeV+" != "+new RefType(typeE));
+
+        return typeEnv;
     }
 
     @Override

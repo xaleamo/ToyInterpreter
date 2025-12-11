@@ -1,10 +1,12 @@
 package model.statement;
 
+import model.program_state.ADTs.MyIDictionary;
 import my_exceptions.StatementException;
 import model.expression.Expression;
 import model.program_state.PrgState;
 import model.value.*;
 import model.type.*;
+import my_exceptions.TypeException;
 
 public class IfStatement implements Statement {
     Expression condExpr;
@@ -18,6 +20,15 @@ public class IfStatement implements Statement {
 
     @Override
     public IfStatement clone() {return new IfStatement(condExpr.clone(), thenStatement.clone(), this.elseStatement.clone());}
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        Type typeExp=condExpr.typecheck(typeEnv);
+        if(!typeExp.equals(new BoolType())) throw new TypeException("Conditional expr is not of BoolType.");
+        thenStatement.typecheck(typeEnv.clone());
+        elseStatement.typecheck(typeEnv.clone());
+        return typeEnv;
+    }
 
     @Override
     public PrgState execute(PrgState ps) {

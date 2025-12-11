@@ -1,7 +1,11 @@
 package model.statement;
 
+import model.program_state.ADTs.MyIDictionary;
 import model.program_state.ExecutionStack;
 import model.program_state.PrgState;
+import model.type.Type;
+import model.value.Id;
+import my_exceptions.TypeException;
 
 public class CompStatement implements Statement {
     Statement stmt1,stmt2;
@@ -12,6 +16,11 @@ public class CompStatement implements Statement {
 
     @Override
     public CompStatement clone() {return new CompStatement(this.stmt1.clone(), this.stmt2.clone());}
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        return stmt2.typecheck(stmt1.typecheck(typeEnv));
+    }
 
     @Override
     public PrgState execute(PrgState ps) {

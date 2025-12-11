@@ -1,5 +1,7 @@
 package model.statement;
 
+import model.program_state.ADTs.MyIDictionary;
+import model.type.Type;
 import my_exceptions.*;
 import model.expression.Expression;
 import model.program_state.PrgState;
@@ -17,6 +19,17 @@ public class AssignStatement implements Statement {
     @Override
     public AssignStatement clone(){
         return new AssignStatement(id.clone(), expr.clone());
+    }
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        Type typevar = typeEnv.lookUp(id);
+        Type typexpr= expr.typecheck(typeEnv);
+        if(typevar==null) throw new TypeException("Variable not declared: "+id);
+        if(typexpr.equals(typevar)){//order matters in case typevar is null
+            return typeEnv;
+        }
+        else throw new TypeException("RHS and LHS of AssignStmt have different types: " +typevar+" != "+typexpr);
     }
 
     @Override

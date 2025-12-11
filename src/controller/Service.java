@@ -74,7 +74,7 @@ public class Service {
     }
 
     public void allStep(){
-        printProgramState(repo.getPrgList().getFirst());
+        //printProgramState(repo.getPrgList().getFirst());
         executor = Executors.newFixedThreadPool(2);
         //remove completed programs
         List<PrgState> prgList=removeCompletedPrg(repo.getPrgList());//this ensures PrgState.oneStep() won't throw an error when calling oneStepForAll()

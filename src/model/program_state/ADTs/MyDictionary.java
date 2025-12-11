@@ -1,5 +1,7 @@
 package model.program_state.ADTs;
 
+import my_exceptions.MyException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,17 +35,17 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V>{
     public boolean isDefined(K k) {
         return map.containsKey(k);
     }
-    /**
-     * Returns the value to which the key is mapped to. If this dictionary contains an entry for the specified key, the associated value is returned; otherwise, null is returned.
-        @param k key
-        @return the <b>value</b> k is mapped to, <b>null</b> otherwise
-     
 
-     */
     @Override
     public V lookUp(K k) {
         return map.get(k);
     }
+
+    @Override
+    public MyIDictionary<K, V> clone(){throw new MyException("Can't clone MyDictionary. Try not using a template.");
+    } ;
+
+
 
     @Override
     public String toString() {

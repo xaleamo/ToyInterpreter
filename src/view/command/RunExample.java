@@ -4,6 +4,7 @@ import controller.Service;
 import model.program_state.*;
 import model.statement.Statement;
 import my_exceptions.MyException;
+import my_exceptions.TypeException;
 import repository.IRepository;
 import repository.Repository;
 
@@ -16,6 +17,21 @@ public class RunExample extends Command {
     }
     @Override
     public void execute() {
+        //first typecheck
+        try {
+            statement.typecheck(new TypeEnv());
+        }
+        catch(TypeException e) {
+            System.out.println("Type error: "+e.getMessage());
+            return;
+        }
+        catch(MyException e) {
+            System.out.println("My exception: "+e.getMessage());
+            return;
+        }
+        finally {
+            System.out.println(statement.toString());
+        }
         //construct program state, repo and service dynamically
         ExecutionStack executionStack = new ExecutionStack();
         executionStack.push(statement);

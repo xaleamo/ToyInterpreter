@@ -1,9 +1,11 @@
 package model.statement;
 
 import model.expression.Expression;
+import model.program_state.ADTs.MyIDictionary;
 import model.program_state.PrgState;
 import model.type.IntType;
 import model.type.StringType;
+import model.type.Type;
 import model.value.Id;
 import model.value.IntValue;
 import model.value.StringValue;
@@ -23,6 +25,17 @@ public class ReadFile implements Statement {
     }
     @Override
     public ReadFile clone() {return new ReadFile(expr.clone(),id.clone());}
+
+    @Override
+    public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {
+        Type typeV=typeEnv.lookUp(id);
+        Type typeExp=expr.typecheck(typeEnv);
+        if(typeV==null) throw new TypeException("Variable "+id+" not found");
+        if(!typeV.equals(new IntType())) throw new TypeException("Variable not of type int.");
+        if(!typeExp.equals(new StringType()))throw new TypeException("Type mismatch: Expression not of StringType.");
+        return typeEnv;
+    }
+
     @Override
     public PrgState execute(PrgState ps) {
         //check expr value and type
