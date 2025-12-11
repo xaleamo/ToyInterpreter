@@ -1,7 +1,7 @@
 package model.statement;
 
 import model.program_state.ExecutionStack;
-import model.program_state.ProgramState;
+import model.program_state.PrgState;
 
 public class CompStatement implements Statement {
     Statement stmt1,stmt2;
@@ -14,13 +14,13 @@ public class CompStatement implements Statement {
     public CompStatement clone() {return new CompStatement(this.stmt1.clone(), this.stmt2.clone());}
 
     @Override
-    public ProgramState execute(ProgramState ps) {
+    public PrgState execute(PrgState ps) {
         ExecutionStack execStack=ps.getExecutionStack();
 
         execStack.push(stmt2);
         execStack.push(stmt1);
 
-        return ps;
+        return null;
     }
 
     @Override

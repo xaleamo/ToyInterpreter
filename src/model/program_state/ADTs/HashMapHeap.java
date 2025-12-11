@@ -1,9 +1,12 @@
 package model.program_state.ADTs;
 
+import model.value.Value;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-public class HashMapHeap<V> implements IHashMapHeap<Integer,V> {
+public class HashMapHeap<V extends Value> implements IHashMapHeap<Integer,V> {
     protected HashMap<Integer,V> map=new HashMap<>();
     private int address;
     public HashMapHeap(){
@@ -35,7 +38,7 @@ public class HashMapHeap<V> implements IHashMapHeap<Integer,V> {
      */
     @Override
     public V update(Integer k, V v){
-        return map.put(address,v);
+        return map.put(k,v);
     }
 
     @Override
@@ -52,6 +55,23 @@ public class HashMapHeap<V> implements IHashMapHeap<Integer,V> {
     @Override
     public V lookUp(Integer k) {
         return map.get(k);
+    }
+
+    @Override
+    public Set<Map.Entry<Integer,V>> entrySet(){
+        return map.entrySet();
+    }
+
+    @Override
+    public HashMap<Integer,V> getContent() {
+        return map;
+    }
+    @Override
+    public void setContent(Map<Integer, V> aux){
+        map.clear();
+        for(Map.Entry<Integer,V> entry:aux.entrySet()){
+            map.put(entry.getKey(),(V)entry.getValue().clone());//how else??
+        }
     }
 
     @Override

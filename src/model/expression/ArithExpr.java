@@ -19,14 +19,14 @@ public class ArithExpr implements Expression {
     Expression op1,op2;
     Operator operator;
 
-    public ArithExpr(Expression op1, Expression op2,Operator operator) {
+    public ArithExpr(Expression op1, Operator operator, Expression op2) {
         this.op1 = op1;
         this.op2 = op2;
         this.operator = operator;
     }
 
     @Override
-    public ArithExpr clone() {return new ArithExpr(op1.clone(), op2.clone(), operator);}
+    public ArithExpr clone() {return new ArithExpr(op1.clone(), operator, op2.clone());}
 
     @Override
     public Value eval(SymTable tbl, Heap heap){

@@ -1,9 +1,8 @@
 package model.statement;
 
 import model.program_state.Heap;
-import model.program_state.ProgramState;
+import model.program_state.PrgState;
 import model.program_state.SymTable;
-import model.type.IntType;
 import model.type.RefType;
 import model.value.*;
 import model.expression.Expression;
@@ -23,7 +22,7 @@ public class WriteHeap implements Statement{
     }
 
     @Override
-    public ProgramState execute(ProgramState ps){
+    public PrgState execute(PrgState ps){
         SymTable tbl = ps.getSymTable();
         Heap heap = ps.getHeap();
 
@@ -35,10 +34,16 @@ public class WriteHeap implements Statement{
 
         Value exprVal=expr.eval(tbl,heap);
         if(!exprVal.getType().equals(((RefType)val.getType()).getInner()))
-            throw new StatementException("Expression "+exprVal+" does not evaluate to (same) ref value (as "+val+").");
+            throw new StatementException("Expression "+exprVal+" does not evaluate to (same) ref value (as "+((RefType)val.getType()).getInner()+").");
+        //add inner check and assume rest are ok
+        if(exprVal instanceof RefValue){
+            //check if valid address
+            Value v=heap.lookUp(((RefValue) exprVal).getAddress());
+            if(v==null || v.getType()!=((RefType)exprVal.getType()).getInner())throw new StatementException("Inner var of "+exprVal+" not valid address.");
+        }
 
         heap.update(((RefValue) val).getAddress(),exprVal);
-        return ps;
+        return null;
     }
 
     @Override

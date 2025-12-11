@@ -19,7 +19,7 @@ public class RunExample extends Command {
         //construct program state, repo and service dynamically
         ExecutionStack executionStack = new ExecutionStack();
         executionStack.push(statement);
-        ProgramState prg=new ProgramState(executionStack,new SymTable(),new Output(), new Heap());
+        PrgState prg=new PrgState(executionStack,new SymTable(), new Heap(), new Output(), new FileTable());
 
         String filepath="files/log";
         count++;
@@ -30,7 +30,7 @@ public class RunExample extends Command {
         Service service=new Service(repo);
 
         try{
-            service.executeAll();
+            service.allStep();
         }
         catch(MyException e){
             System.out.println(e.getMessage());

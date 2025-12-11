@@ -6,13 +6,13 @@ import model.program_state.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.List;
 
 public class Repository implements IRepository {
-    private ArrayList<ProgramState> programState = new ArrayList<ProgramState>();
+    private ArrayList<PrgState> threads = new ArrayList<PrgState>();
     private String logFilePath;
-    public Repository(ProgramState programState, String logFilePath) {
-        this.programState.addFirst(programState);
+    public Repository(PrgState programState, String logFilePath) {
+        this.threads.addFirst(programState);
         this.logFilePath = logFilePath;
     }
 
@@ -21,29 +21,15 @@ public class Repository implements IRepository {
      * @return corresponding ProgramState
      * @throws RepositoryException if index is out of bounds/program does not exist
      */
-    @Override
-    public ProgramState getCrtProgram() {
-        try{
-            return programState.getFirst();
-        }
-        catch(NoSuchElementException e){
-            throw new RepositoryException("Program does not exist.");
-        }
-    }
 
-    private void addProgram(ProgramState p){
-        programState.add(p);
+
+    private void addProgram(PrgState p){
+        threads.add(p);
     }
 
     @Override
-    public void logPrgStateExec() {
-        ProgramState ps = null;
-        try {
-            ps = programState.getFirst();
-        }catch(NoSuchElementException e){
-            throw new RepositoryException("Program does not exist.");
-        }
-
+    public void logPrgStateExec(PrgState ps) throws FileException {
+        //TODO manage which file it saves to
         PrintWriter pw=null;
         try {
             pw = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));//creates new file if one is not found
@@ -60,6 +46,17 @@ public class Repository implements IRepository {
 
     @Override
     public void reloadProgram(){
-        programState.getFirst().reload();
+        threads.getFirst().reload();
     }
+
+    @Override
+    public List<PrgState> getPrgList(){
+        return threads;
+    }
+    @Override
+    public void setPrgList(List<PrgState> t){
+        threads.clear();
+        threads.addAll(t);
+    }
+
 }

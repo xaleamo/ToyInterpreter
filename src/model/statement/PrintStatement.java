@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.program_state.ProgramState;
+import model.program_state.PrgState;
 import model.expression.Expression;
 
 public class PrintStatement implements Statement {
@@ -17,8 +17,8 @@ public class PrintStatement implements Statement {
     }
 
     @Override
-    public ProgramState execute(ProgramState ps) {
+    public PrgState execute(PrgState ps) {
         ps.getOutput().add(expr.eval(ps.getSymTable(), ps.getHeap()));
-        return ps;
+        return null;
     }
 }

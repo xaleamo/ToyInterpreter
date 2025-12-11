@@ -1,15 +1,9 @@
-import controller.Service;
-import model.program_state.*;
 import model.statement.*;
 import model.type.*;
 import model.value.*;
 import model.expression.*;
-import repository.*;
 import view.TextMenu;
 import view.command.*;
-
-import javax.swing.plaf.nimbus.State;
-import java.sql.Ref;
 
 public class Interpreter {
     public static void main(String[] args) {
@@ -27,6 +21,14 @@ public class Interpreter {
         menu.addCommand(new RunExample("run p7","run (alloc) heap program 1",HeapProgram1()));
         menu.addCommand(new RunExample("run p8","run (read) heap program 2",HeapProgram2()));
         menu.addCommand(new RunExample("run p9","run (write) heap program 3",HeapProgram3()));
+        menu.addCommand(new RunExample("run p10","run garbage collector heap program 4",HeapProgram4()));//safe version
+        menu.addCommand(new RunExample("run p11","run (invalid addr overwrite) heap program 5",HeapProgram5()));
+        menu.addCommand(new RunExample("run p12","run (invalid addr overwrite) heap program 6",HeapProgram6()));
+        menu.addCommand(new RunExample("run p13","run while program 1",WhileProgram1()));
+        menu.addCommand(new RunExample("run p14","run read heap invalid",HeapReadInvalidProgram()));
+        menu.addCommand(new RunExample("run p15","run fork program 1",ForkProgram1()));
+        menu.addCommand(new RunExample("run p16","run fork program 2",ForkProgram2()));
+        menu.addCommand(new RunExample("run p17","run fork program 3",ForkProgram3()));
 
         menu.run();
 
@@ -54,12 +56,10 @@ public class Interpreter {
                                         new Id("a"),
                                         new ArithExpr(
                                                 new ValueExpr(new IntValue(2)),
-                                                new ArithExpr(
+                                                ArithExpr.Operator.ADD, new ArithExpr(
                                                         new ValueExpr(new IntValue(3)),
-                                                        new ValueExpr(new IntValue(5)),
-                                                        ArithExpr.Operator.MULTIPLY
-                                                ),
-                                                ArithExpr.Operator.ADD
+                                                ArithExpr.Operator.MULTIPLY, new ValueExpr(new IntValue(5))
+                                        )
                                         )
                                 ),
                                 new CompStatement(
@@ -67,8 +67,7 @@ public class Interpreter {
                                                 new Id("b"),
                                                 new ArithExpr(
                                                         new VariableExpr(new Id("a")),
-                                                        new ValueExpr(new IntValue(1)),
-                                                        ArithExpr.Operator.ADD
+                                                        ArithExpr.Operator.ADD, new ValueExpr(new IntValue(1))
                                                 )
                                         ),
                                         new PrintStatement(new VariableExpr(new Id("b")))
@@ -174,11 +173,11 @@ public class Interpreter {
         return new CompStatement(
                 new VarDeclaration(new RefType(new IntType()),new Id("v")),
                 new CompStatement(
-                        new HeapAlloc(new Id("v"),new ValueExpr(new IntValue(20))),
+                        new NewStatement(new Id("v"),new ValueExpr(new IntValue(20))),
                         new CompStatement(
                                 new VarDeclaration(new RefType(new RefType(new IntType())),new Id("a")),
                                 new CompStatement(
-                                        new HeapAlloc(new Id("a"),new VariableExpr(new Id("v"))),
+                                        new NewStatement(new Id("a"),new VariableExpr(new Id("v"))),
                                         new CompStatement(
                                                 new PrintStatement(new VariableExpr(new Id("v"))),
                                                 new PrintStatement(new VariableExpr(new Id("a")))
@@ -194,28 +193,27 @@ public class Interpreter {
         return new CompStatement(
                 new VarDeclaration(new RefType(new IntType()), new Id("v")),
                 new CompStatement(
-                        new HeapAlloc(
+                        new NewStatement(
                                 new Id("v"),
                                 new ValueExpr(new IntValue(20))
                         ),
                         new CompStatement(
                                 new VarDeclaration(new RefType(new RefType(new IntType())), new Id("a")),
                                 new CompStatement(
-                                        new HeapAlloc(
+                                        new NewStatement(
                                                 new Id("a"),
                                                 new VariableExpr(new Id("v"))
                                         ),
                                         new CompStatement(
                                                 new PrintStatement(
-                                                        new ReadHeap(new VariableExpr(new Id("v")))
+                                                        new RHExp(new VariableExpr(new Id("v")))
                                                 ),
                                                 new PrintStatement(
                                                         new ArithExpr(
-                                                                new ReadHeap(
-                                                                        new ReadHeap(new VariableExpr(new Id("a")))
+                                                                new RHExp(
+                                                                        new RHExp(new VariableExpr(new Id("a")))
                                                                 ),
-                                                                new ValueExpr(new IntValue(5)),
-                                                                ArithExpr.Operator.ADD
+                                                                ArithExpr.Operator.ADD, new ValueExpr(new IntValue(5))
                                                         )
                                                 )
                                         )
@@ -232,13 +230,13 @@ public class Interpreter {
         return new CompStatement(
                 new VarDeclaration(new RefType(new IntType()), new Id("v")),
                 new CompStatement(
-                        new HeapAlloc(
+                        new NewStatement(
                                 new Id("v"),
                                 new ValueExpr(new IntValue(20))
                         ),
                         new CompStatement(
                                 new PrintStatement(
-                                        new ReadHeap(new VariableExpr(new Id("v")))
+                                        new RHExp(new VariableExpr(new Id("v")))
                                 ),
                                 new CompStatement(
                                         new WriteHeap(
@@ -247,9 +245,8 @@ public class Interpreter {
                                         ),
                                         new PrintStatement(
                                                 new ArithExpr(
-                                                        new ReadHeap(new VariableExpr(new Id("v"))),
-                                                        new ValueExpr(new IntValue(5)),
-                                                        ArithExpr.Operator.ADD
+                                                        new RHExp(new VariableExpr(new Id("v"))),
+                                                        ArithExpr.Operator.ADD, new ValueExpr(new IntValue(5))
                                                 )
                                         )
                                 )
@@ -259,5 +256,375 @@ public class Interpreter {
 
     }
 
+    /// Should throw error when executing with unsafe garbage collector
+    /// Ref int v;new(v,20);Ref Ref int a; new(a,v); new(v,30);print(rH(rH(a)))
+    private static Statement HeapProgram4() {
+        return new CompStatement(
+                new VarDeclaration(new RefType(new IntType()), new Id("v")),
+                new CompStatement(
+                        new NewStatement(
+                                new Id("v"),
+                                new ValueExpr(new IntValue(20))
+                        ),
+                        new CompStatement(
+                                new VarDeclaration(new RefType(new RefType(new IntType())), new Id("a")),
+                                new CompStatement(
+                                        new NewStatement(
+                                                new Id("a"),
+                                                new VariableExpr(new Id("v"))
+                                        ),
+                                        new CompStatement(
+                                                new NewStatement(      // new(v,30)
+                                                        new Id("v"),
+                                                        new ValueExpr(new IntValue(30))
+                                                ),
+                                                new PrintStatement(
+                                                        new RHExp(
+                                                                new RHExp(new VariableExpr(new Id("a")))
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
 
+    }
+
+    /**
+    Ref int v;
+    new(v, 20);
+    Ref Ref int a;
+    new(a, v);
+    new(v, 999);      // breaks the chain (v no longer points to the old cell)
+    writeHeap(a, (2 IntType));
+    print(rH(rH(a)));
+     */
+    private static Statement HeapProgram5() {
+        return new CompStatement(
+                new VarDeclaration(new RefType(new IntType()), new Id("v")),
+                new CompStatement(
+                        new NewStatement(new Id("v"), new ValueExpr(new IntValue(20))),   // v -> cell1
+                        new CompStatement(
+                                new VarDeclaration(new RefType(new RefType(new IntType())), new Id("a")),
+                                new CompStatement(
+                                        new NewStatement(new Id("a"), new VariableExpr(new Id("v"))), // a -> cell2, storing address1
+                                        new CompStatement(
+                                                new NewStatement(new Id("v"), new ValueExpr(new IntValue(999))), // v -> NEW cell3
+                                                new CompStatement(
+                                                        new WriteHeap(
+                                                                new Id("a"),
+                                                                new ValueExpr(
+                                                                        new RefValue(
+                                                                                2,               // BAD address (not in heap)
+                                                                                new IntType()
+                                                                        )
+                                                                )
+                                                        ),
+                                                        new PrintStatement(
+                                                                new RHExp(
+                                                                        new RHExp(
+                                                                                new VariableExpr(new Id("a"))
+                                                                        )
+                                                                )   // this crashes: trying to read heap[999]
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+
+    }
+
+    /**with error
+     * Ref Int aux;
+     * Ref Ref Int a,v;
+     * new(aux, 100);
+     * new(a,aux);
+     * new(v,a);
+     * new(a,v);
+     */
+    private static Statement HeapProgram6() {
+        return new CompStatement(
+            new VarDeclaration(
+                new RefType(new IntType()),
+                new Id("aux")
+            ),
+            new CompStatement(
+                new VarDeclaration(
+                    new RefType(new RefType(new IntType())),
+                    new Id("a")
+                ),
+                new CompStatement(
+                    new VarDeclaration(
+                        new RefType(new RefType(new IntType())),
+                        new Id("v")
+                    ),
+                    new CompStatement(
+                        new NewStatement(new Id("aux"),new ValueExpr(new IntValue(100))),
+                        new CompStatement(
+                            new NewStatement(new Id("a"),new VariableExpr(new Id("aux"))),
+                            new CompStatement(
+                                new NewStatement(new Id("v"),new ValueExpr(new RefValue(2,new IntType()))),
+                                new CompStatement(
+                                    new NewStatement(new Id("a"),new VariableExpr(new Id("v"))),
+                                    new PrintStatement(new RHExp(new VariableExpr(new Id("v"))))
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+    private static Statement WhileProgram1() {
+        return new CompStatement(
+                new VarDeclaration(new IntType(),new Id("v")),
+                new CompStatement(
+                        new AssignStatement(
+                                new Id("v"),
+                                new ValueExpr(new IntValue(4))
+                        ),
+                        new CompStatement(
+                                new WhileStatement(
+                                        new RelationalExpr(
+                                                new VariableExpr(new Id("v")),
+                                                RelationalExpr.Operator.GREATER,
+                                                new ValueExpr(new IntValue(0))
+
+                                        ),
+                                        new CompStatement(
+                                                new PrintStatement(new VariableExpr(new Id("v"))),
+                                                new AssignStatement(
+                                                        new Id("v"),
+                                                        new ArithExpr(
+                                                                new VariableExpr(new Id("v")),
+                                                                ArithExpr.Operator.SUBTRACT,
+                                                                new ValueExpr(new IntValue(1))
+                                                        )
+                                                )
+                                        )
+                                ),
+                                new PrintStatement(new VariableExpr(new Id("v")))
+                        )
+                )
+        );
+
+    }
+
+    private static Statement HeapReadInvalidProgram() {
+        return new CompStatement(
+                new VarDeclaration(new RefType(new IntType()), new Id("v")),
+                new CompStatement(
+                        new NewStatement(
+                                new Id("v"),
+                                new ValueExpr(new IntValue(20))
+                        ),
+                        new CompStatement(
+                                new VarDeclaration(new RefType(new RefType(new IntType())), new Id("a")),
+                                new CompStatement(
+                                        new NewStatement(
+                                                new Id("a"),
+                                                new VariableExpr(new Id("v"))
+                                        ),
+                                        new CompStatement(
+                                                new PrintStatement(
+                                                        new RHExp(new VariableExpr(new Id("v")))
+                                                ),
+                                                new PrintStatement(
+                                                        new ArithExpr(
+                                                                new RHExp(
+                                                                        new RHExp(new ValueExpr(new RefValue(1,new RefType(new IntType()))))
+                                                                ),
+                                                                ArithExpr.Operator.ADD, new ValueExpr(new IntValue(5))
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+    }
+
+    //normal
+    private static Statement ForkProgram1() {
+        return
+                new CompStatement(
+                        new VarDeclaration(new IntType(),new Id("v")),
+                        new CompStatement(
+                                new VarDeclaration(new RefType(new IntType()),new Id("a")),
+                                new CompStatement(
+                                        new AssignStatement(
+                                                new Id("v"),
+                                                new ValueExpr(new IntValue(10))
+                                        ),
+                                        new CompStatement(
+                                                new NewStatement(
+                                                        new Id("a"),
+                                                        new ValueExpr(new IntValue(22))
+                                                ),
+                                                new CompStatement(
+                                                        new ForkStatement(
+                                                                new CompStatement(
+                                                                        new WriteHeap(
+                                                                                new Id("a"),
+                                                                                new ValueExpr(new IntValue(30))
+                                                                        ),
+                                                                        new CompStatement(
+                                                                                new AssignStatement(
+                                                                                        new Id("v"),
+                                                                                        new ValueExpr(new IntValue(32))
+                                                                                ),
+                                                                                new CompStatement(
+                                                                                        new PrintStatement(
+                                                                                                new VariableExpr(new Id("v"))
+                                                                                        ),
+                                                                                        new PrintStatement(
+                                                                                                new RHExp(
+                                                                                                        new VariableExpr(new Id("a"))
+                                                                                                )
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+                                                        ),
+                                                        new CompStatement(
+                                                                new PrintStatement(new VariableExpr(new Id("v"))),
+                                                                new PrintStatement(
+                                                                        new RHExp(new VariableExpr(new Id("a")))
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                );
+
+    }
+
+    //...22...
+    private static Statement ForkProgram2() {
+        return
+                new CompStatement(
+                        new VarDeclaration(new IntType(),new Id("v")),
+                        new CompStatement(
+                                new VarDeclaration(new RefType(new IntType()),new Id("a")),
+                                new CompStatement(
+                                        new AssignStatement(
+                                                new Id("v"),
+                                                new ValueExpr(new IntValue(10))
+                                        ),
+                                        new CompStatement(
+                                                new NewStatement(
+                                                        new Id("a"),
+                                                        new ValueExpr(new IntValue(22))
+                                                ),
+                                                new CompStatement(
+                                                        new ForkStatement(
+                                                                new CompStatement(
+                                                                        new CompStatement(
+                                                                                new PrintStatement(new VariableExpr(new Id("a"))),
+                                                                                new WriteHeap(
+                                                                                        new Id("a"),
+                                                                                        new ValueExpr(new IntValue(30))
+                                                                                )
+                                                                        ),
+                                                                        new CompStatement(
+                                                                                new AssignStatement(
+                                                                                        new Id("v"),
+                                                                                        new ValueExpr(new IntValue(32))
+                                                                                ),
+                                                                                new CompStatement(
+                                                                                        new PrintStatement(
+                                                                                                new VariableExpr(new Id("v"))
+                                                                                        ),
+                                                                                        new PrintStatement(
+                                                                                                new RHExp(
+                                                                                                        new VariableExpr(new Id("a"))
+                                                                                                )
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+                                                        ),
+                                                        new CompStatement(
+                                                                new PrintStatement(new VariableExpr(new Id("v"))),
+                                                                new PrintStatement(
+                                                                        new RHExp(new VariableExpr(new Id("a")))
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                );
+
+    }
+
+    //10...10
+    private static Statement ForkProgram3() {
+        return
+                new CompStatement(
+                        new VarDeclaration(new IntType(),new Id("v")),
+                        new CompStatement(
+                                new VarDeclaration(new RefType(new IntType()),new Id("a")),
+                                new CompStatement(
+                                        new CompStatement(
+                                                new AssignStatement(
+                                                        new Id("v"),
+                                                        new ValueExpr(new IntValue(10))
+                                                ),
+                                                new PrintStatement(
+                                                        new VariableExpr(new Id("v"))
+                                                )
+                                        ),
+                                        new CompStatement(
+                                                new NewStatement(
+                                                        new Id("a"),
+                                                        new ValueExpr(new IntValue(22))
+                                                ),
+                                                new CompStatement(
+                                                        new ForkStatement(
+                                                                new CompStatement(
+                                                                        new WriteHeap(
+                                                                                new Id("a"),
+                                                                                new ValueExpr(new IntValue(30))
+                                                                        ),
+                                                                        new CompStatement(
+                                                                                new AssignStatement(
+                                                                                        new Id("v"),
+                                                                                        new ValueExpr(new IntValue(32))
+                                                                                ),
+                                                                                new CompStatement(
+                                                                                        new PrintStatement(
+                                                                                                new VariableExpr(new Id("v"))
+                                                                                        ),
+                                                                                        new PrintStatement(
+                                                                                                new RHExp(
+                                                                                                        new VariableExpr(new Id("a"))
+                                                                                                )
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+                                                        ),
+                                                        new CompStatement(
+                                                                new CompStatement(
+                                                                        new CompStatement(new CompStatement(new Nop(),new Nop()),new Nop()),
+                                                                        new PrintStatement(new VariableExpr(new Id("v")))
+                                                                ),
+                                                                new PrintStatement(
+                                                                        new RHExp(new VariableExpr(new Id("a")))
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                );
+
+    }
 }

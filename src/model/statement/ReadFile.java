@@ -1,7 +1,7 @@
 package model.statement;
 
 import model.expression.Expression;
-import model.program_state.ProgramState;
+import model.program_state.PrgState;
 import model.type.IntType;
 import model.type.StringType;
 import model.value.Id;
@@ -24,7 +24,7 @@ public class ReadFile implements Statement {
     @Override
     public ReadFile clone() {return new ReadFile(expr.clone(),id.clone());}
     @Override
-    public ProgramState execute(ProgramState ps) {
+    public PrgState execute(PrgState ps) {
         //check expr value and type
         Value val=expr.eval(ps.getSymTable(), ps.getHeap());
         if(!val.getType().equals(new StringType())) throw new ExpressionException("Type Mismatch");
@@ -54,7 +54,7 @@ public class ReadFile implements Statement {
             throw new MyException("File contents are wrong, this should never happen!! ");
         }
 
-        return ps;
+        return null;
     }
 
     @Override

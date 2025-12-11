@@ -1,7 +1,7 @@
 package model.statement;
 
 import model.expression.Expression;
-import model.program_state.ProgramState;
+import model.program_state.PrgState;
 import model.type.StringType;
 import model.value.StringValue;
 import model.value.Value;
@@ -22,7 +22,7 @@ public class CloseRFile implements Statement{
     public CloseRFile clone() {return new CloseRFile(expr.clone());}
 
     @Override
-    public ProgramState execute(ProgramState ps) throws ProgramStateException, ExpressionException {
+    public PrgState execute(PrgState ps) throws ProgramStateException, ExpressionException {
         Value val=expr.eval(ps.getSymTable(), ps.getHeap());
         if(!val.getType().equals(new StringType())) throw new ExpressionException("Type Mismatch");
         StringValue key=(StringValue)val;
@@ -35,7 +35,7 @@ public class CloseRFile implements Statement{
             throw new FileException("Something went wrong while closing the file.");
         }
         ps.getFileTable().remove(key);
-        return ps;
+        return null;
     }
 
     @Override

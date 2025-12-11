@@ -54,4 +54,8 @@ public class MyDictionary<K,V> implements MyIDictionary<K,V>{
         }
         return sb.toString();
     }
+
+    public Map<K, V> getContent() {
+        return map;
+    }
 }

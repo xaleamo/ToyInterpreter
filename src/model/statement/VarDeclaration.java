@@ -1,7 +1,7 @@
 package model.statement;
 
 import my_exceptions.ProgramStateException;
-import model.program_state.ProgramState;
+import model.program_state.PrgState;
 import model.program_state.SymTable;
 import model.type.*;
 import model.value.*;
@@ -17,7 +17,7 @@ public class VarDeclaration implements Statement {
     public VarDeclaration clone() {return new VarDeclaration(type.clone(),id.clone());}
 
     @Override
-    public ProgramState execute(ProgramState ps) {
+    public PrgState execute(PrgState ps) {
         SymTable symTable = ps.getSymTable();
         if(symTable.lookUp(id)==null){
             symTable.add(id, type.defaultValue());
@@ -25,7 +25,7 @@ public class VarDeclaration implements Statement {
         else{
             throw new ProgramStateException("Variable already exists");
         }
-        return ps;
+        return null;
     }
     @Override
     public String toString(){

@@ -1,10 +1,10 @@
 package model.statement;
 
-import model.program_state.ProgramState;
+import model.program_state.PrgState;
 
 public interface Statement extends Cloneable {
-    ProgramState execute(ProgramState ps);
-    //String toString();
+    PrgState execute(PrgState ps);
+
     Statement clone();
 
 }
