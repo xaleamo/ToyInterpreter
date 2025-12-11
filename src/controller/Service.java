@@ -1,9 +1,6 @@
 package controller;
 
 import model.program_state.PrgState;
-import model.program_state.SymTable;
-import model.statement.Statement;
-import model.value.Id;
 import model.value.RefValue;
 import model.value.Value;
 import my_exceptions.MyException;

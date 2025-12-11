@@ -1,8 +1,13 @@
 package model.expression;
 
 import model.program_state.*;
+import model.program_state.ADTs.MyIDictionary;
+import model.type.RefType;
+import model.type.Type;
 import model.value.*;
 import my_exceptions.ExpressionException;
+import my_exceptions.MyException;
+import my_exceptions.TypeException;
 
 public class RHExp implements Expression {
     private Expression expr;
@@ -10,6 +15,16 @@ public class RHExp implements Expression {
 
     @Override
     public RHExp clone(){return new RHExp(expr.clone());}
+
+    @Override
+    public Type typecheck(MyIDictionary<Id, Type> typeEnv) throws MyException {
+        Type typ=expr.typecheck(typeEnv);
+        if(typ instanceof RefType){
+            return ((RefType)typ).getInner();
+        }
+        else throw new TypeException("The RH argument is not a RefType");
+    }
+
 
     @Override
     public Value eval(SymTable tbl, Heap heap) {

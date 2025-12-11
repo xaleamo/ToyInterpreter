@@ -1,11 +1,15 @@
 package model.expression;
 
+import model.program_state.ADTs.MyIDictionary;
 import model.program_state.Heap;
+import model.type.Type;
+import model.value.Id;
 import my_exceptions.ExpressionException;
 import model.program_state.SymTable;
 import model.type.BoolType;
 import model.value.BoolValue;
 import model.value.Value;
+import my_exceptions.TypeException;
 
 public class LogicExpr implements Expression {
 
@@ -21,6 +25,20 @@ public class LogicExpr implements Expression {
         this.op = op;
         this.e2 = e2;
     }
+
+    @Override
+    public Type typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException{
+        Type typ1=e1.typecheck(typeEnv);
+        Type typ2=e2.typecheck(typeEnv);
+        if(typ1.equals(new BoolType())){
+            if(typ2.equals(new BoolType())){
+                return new BoolType();
+            }
+            else throw new TypeException("Second operand is not of BoolType: "+e2);
+        }
+        throw new TypeException("First operand is not of BoolType: "+e1);
+    }
+
     @Override
     public LogicExpr clone() {return new LogicExpr(e1.clone(),op,e2.clone());}
 

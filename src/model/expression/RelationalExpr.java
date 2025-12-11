@@ -1,12 +1,16 @@
 package model.expression;
 
+import model.program_state.ADTs.MyIDictionary;
 import model.program_state.Heap;
 import model.program_state.SymTable;
 import model.type.IntType;
+import model.type.Type;
 import model.value.BoolValue;
+import model.value.Id;
 import model.value.IntValue;
 import model.value.Value;
 import my_exceptions.ExpressionException;
+import my_exceptions.TypeException;
 
 public class RelationalExpr implements Expression {
     public enum Operator{
@@ -21,6 +25,19 @@ public class RelationalExpr implements Expression {
         this.expr1 = expr1;
         this.expr2 = expr2;
         this.op = op;
+    }
+
+    @Override
+    public Type typecheck(MyIDictionary<Id, Type> typeEnv) {
+        Type typ1 = expr1.typecheck(typeEnv);
+        Type typ2 = expr2.typecheck(typeEnv);
+        if(typ1.equals(new IntType())){
+            if(typ2.equals(new IntType())){
+                return new IntType();
+            }
+            else throw new TypeException("Second operand is not an integer: "+expr2);
+        }
+        else throw new TypeException("First operand is not an integer: "+expr1);
     }
 
     @Override
