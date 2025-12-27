@@ -1,3 +1,5 @@
+package main;
+
 import model.statement.*;
 import model.type.*;
 import model.value.*;
@@ -5,8 +7,12 @@ import model.expression.*;
 import view.TextMenu;
 import view.command.*;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Interpreter {
-    public static void main(String[] args) {
+    public static void createCommandsAndRunTextMenu() {
 
 
         TextMenu menu=new TextMenu();
@@ -35,6 +41,30 @@ public class Interpreter {
 
     }
 
+    public static Collection<Statement> getAllPrograms(){
+        Set<Statement> allPrograms = new HashSet<>();
+
+        allPrograms.add(Program1());
+        allPrograms.add(Program2());
+        allPrograms.add(Program3());
+        allPrograms.add(FaultyProgram1());
+        allPrograms.add(FaultyProgram2());
+        allPrograms.add(FileProgram1());
+        allPrograms.add(HeapProgram1());
+        allPrograms.add(HeapProgram2());
+        allPrograms.add(HeapProgram3());
+        allPrograms.add(HeapProgram4());
+        allPrograms.add(HeapProgram5());
+        allPrograms.add(HeapProgram6());
+        allPrograms.add(WhileProgram1());
+        allPrograms.add(HeapReadInvalidProgram());
+        allPrograms.add(ForkProgram1());
+        allPrograms.add(ForkProgram2());
+        allPrograms.add(ForkProgram3());
+        allPrograms.add(FaultyForkProgram1());
+
+        return allPrograms;
+    }
 
 
     private static Statement Program1() {   //int v; v=2;Print(v)

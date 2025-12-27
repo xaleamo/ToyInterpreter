@@ -20,10 +20,12 @@ public class TextMenu {
     private void printMenu(){
         sorted_commands = new ArrayList<>(commands.values());
         sorted_commands.sort(Comparator.comparing(Command::getKey));
+        System.out.println("\033[1;36m---------------------------------------------------------------------------------");
         for(Command c : sorted_commands){
             String line=String.format("%4s:%s",c.getKey(),c.getDescription());
             System.out.println(line);
         }
+        System.out.println("---------------------------------------------------------------------------------\033[0m");
     }
 
 

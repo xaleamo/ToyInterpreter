@@ -36,6 +36,9 @@ public class MyStack<T> implements MyIStack<T>{
         return rez.toString();
     }
 
+    @Override
+    public LinkedList<T> getContent(){return stack;}
+
 //    @Override
 //    public Object clone() throws CloneNotSupportedException {
 //        MyStack<T> ret = (MyStack<T>) super.clone();

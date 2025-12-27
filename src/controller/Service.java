@@ -97,6 +97,26 @@ public class Service {
 
     }
 
+    public void runOneStep(){
+        //printProgramState(repo.getPrgList().getFirst());
+        executor = Executors.newFixedThreadPool(2);
+        //remove completed programs
+        List<PrgState> prgList=removeCompletedPrg(repo.getPrgList());//this ensures PrgState.oneStep() won't throw an error when calling oneStepForAll()
+
+        if(!prgList.isEmpty()){
+            Set<Value> used= prgList.stream()
+                    .map(p-> new HashSet<>(p.getSymTable().getContent().values()))
+                    .reduce(new HashSet<>(),(a,b)->{a.addAll(b);return a;});
+            safeGarbageCollector(getAllUsedAddresses(used,prgList.getFirst().getHeap().getContent()), prgList.getFirst().getHeap().getContent());
+
+            oneStepForAllPrg(prgList);//this calls repo.setPrgState(prgList)//is called on prgStates that allow at least one more step
+        }
+
+        executor.shutdownNow();
+        repo.setPrgList(prgList);
+
+
+    }
 
 
     public List<PrgState> removeCompletedPrg(List<PrgState> inPrgList){
@@ -107,6 +127,9 @@ public class Service {
 
 
 
+    public List<PrgState> getPrgStates(){
+        return repo.getPrgList();
+    }
 
 
 

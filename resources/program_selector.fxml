@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.ProgramSelectorController"
+      spacing="10">
+
+    <ListView fx:id="programs" prefWidth="300"/>
+
+    <VBox spacing="10">
+        <Button fx:id="runButton" text="Run"/>
+        <TextField fx:id="info" editable="false"/>
+    </VBox>
+
+</HBox>

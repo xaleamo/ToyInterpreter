@@ -35,5 +35,6 @@ public class MyList<T> implements MyIList<T>{
         }
         return rez.toString();
     }
-
+    @Override
+    public ArrayList<T> getContent(){return list;}
 }

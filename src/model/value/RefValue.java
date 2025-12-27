@@ -27,12 +27,14 @@ public class RefValue implements Value {
     public String toString(){
         return '('+Integer.toString(address)+','+locationType.toString()+')';
     }
-    @Override
-    public boolean equals(Object o){
-        if(o instanceof RefValue){
 
-            return ((RefValue)o).address==this.address && ((RefValue)o).equals((RefValue)this.locationType);
-        }
-        else return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RefValue)) return false;
+        RefValue other = (RefValue) o;
+
+        return this.address == other.address
+                && this.locationType.equals(other.locationType); // safe Type comparison
     }
 }

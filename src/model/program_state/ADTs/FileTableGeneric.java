@@ -48,4 +48,6 @@ public class FileTableGeneric<K,V> implements IFileTableGeneric<K,V>{
         }
         return sb.toString();
     }
+    @Override
+    public Hashtable<K,V> getContent(){return table;}
 }
