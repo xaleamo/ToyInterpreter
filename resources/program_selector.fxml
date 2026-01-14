@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<HBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="gui.ProgramSelectorController"
-      spacing="10">
+<HBox spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="viewGUI.ProgramSelectorController">
 
     <ListView fx:id="programs" prefWidth="300"/>
 
     <VBox spacing="10">
-        <Button fx:id="runButton" text="Run"/>
-        <TextField fx:id="info" editable="false"/>
+        <Button fx:id="runButton" text="Run" />
+        <TextArea fx:id="info" editable="false" >
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </VBox.margin></TextArea>
     </VBox>
 
 </HBox>

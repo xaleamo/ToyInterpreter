@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewGUI.MainWindowController">
+
+    <!-- TOP -->
+    <top>
+        <HBox spacing="10">
+            <Label text="Prg States:" />
+            <TextField fx:id="nrOfPrgStates" editable="false" />
+            <Button fx:id="runOneStepButton" text="Run one step" />
+        </HBox>
+    </top>
+
+    <!-- CENTER -->
+    <center>
+        <VBox minWidth="-Infinity" prefHeight="423.0" prefWidth="231.0" spacing="5">
+            <Label text="Execution stack:" />
+            <ListView fx:id="executionStack" minWidth="-Infinity" />
+         <BorderPane.margin>
+            <Insets left="1.0" right="1.0" />
+         </BorderPane.margin>
+        </VBox>
+    </center>
+
+    <!-- LEFT -->
+    <left>
+        <VBox spacing="5">
+            <Label text="Prg States" />
+            <ListView fx:id="prgStateIDs" prefHeight="400.0" prefWidth="80.0" />
+        </VBox>
+    </left>
+
+    <!-- RIGHT -->
+    <right>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <VBox spacing="5">
+                <Label text="Heap" />
+                <TableView fx:id="heapTable" prefHeight="400.0" prefWidth="215.0" />
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="SymTable" />
+                <TableView fx:id="symTable" minWidth="-Infinity" prefWidth="215.0" />
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="FileTable" />
+                <ListView fx:id="fileTable" minWidth="-Infinity" prefWidth="150.0" />
+            </VBox>
+        </HBox>
+    </right>
+
+    <!-- BOTTOM -->
+    <bottom>
+        <HBox alignment="BOTTOM_LEFT" spacing="10">
+            <VBox spacing="5">
+                <Label text="Output" />
+                <ListView fx:id="output" />
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Error msg" />
+                <TextArea fx:id="errorLogArea" editable="false" style="-fx-text-fill: red;" wrapText="true" />
+            </VBox>
+        </HBox>
+    </bottom>
+
+</BorderPane>

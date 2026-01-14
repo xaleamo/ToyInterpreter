@@ -99,7 +99,7 @@ public class Service {
 
     public void runOneStep(){
         //printProgramState(repo.getPrgList().getFirst());
-        executor = Executors.newFixedThreadPool(2);
+        executor = Executors.newFixedThreadPool(3);
         //remove completed programs
         List<PrgState> prgList=removeCompletedPrg(repo.getPrgList());//this ensures PrgState.oneStep() won't throw an error when calling oneStepForAll()
 
@@ -113,9 +113,8 @@ public class Service {
         }
 
         executor.shutdownNow();
+        //prgList=removeCompletedPrg(repo.getPrgList());
         repo.setPrgList(prgList);
-
-
     }
 
 

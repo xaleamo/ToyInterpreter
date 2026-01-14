@@ -1,111 +1,32 @@
 package viewGUI;
 
-import controller.Service;
 import javafx.application.Application;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import main.Interpreter;
-import model.program_state.*;
-import model.statement.Statement;
-import model.value.Id;
-import model.value.StringValue;
-import model.value.Value;
-import my_exceptions.MyException;
-import my_exceptions.TypeException;
-import repository.IRepository;
-import repository.Repository;
-
-
-
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Main extends Application {
-    private int count=0;
     @Override
     public void start(Stage mainStage) throws Exception {
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("program_selector.fxml"));
-        //ui layout etc
-        HBox main_layout=new HBox();//aka the root
-        ListView<Statement> programs=new ListView<>();
-        Button run=new Button("Run");
-        TextField info=new TextField();
-        info.setEditable(false);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/program_selector.fxml"));
+        Parent root = loader.load();
 
-        main_layout.getChildren().addAll(programs,run,info);
+        Scene scene = new Scene(root,500,800);
+        scene.getStylesheets().add(getClass().getResource("/my_style.css").toExternalForm());
 
-        Scene scene = new Scene(main_layout,500,800);
         mainStage.setScene(scene);
         mainStage.setTitle("My App");
         mainStage.show();
-
-        //ui management
-        programs.getItems().addAll(Interpreter.getAllPrograms());
-                //.stream()
-                //.map(e->e.toString())
-                //.collect(Collectors.toCollection(ArrayList::new)));
-
-        run.setOnAction(event -> {
-            Statement statement=programs.getSelectionModel().getSelectedItem();
-            info.clear();
-            if(statement==null){return;}
-            try {
-                statement.typecheck(new TypeEnv());
-                Service service =createService(statement);
-                MainWindow mainWindow=new MainWindow(service);
-                mainWindow.open();
-            }
-            catch(TypeException e) {
-                //System.out.println("Type error: "+e.getMessage());//DEBUG
-                info.setText("Type error: "+e.getMessage());
-                info.setStyle("-fx-text-fill: red;");
-
-            }
-            catch(MyException e) {
-                info.setText("Type error: "+e.getMessage());
-                info.setStyle("-fx-text-fill: red;");
-
-            }
-
-        });
-
-
-
     }
-    ///this statement is supposed to pass the typechecker
-    private Service createService(Statement statement){
-        //construct program state, repo and service dynamically
-        ExecutionStack executionStack = new ExecutionStack();
-        executionStack.push(statement);
-        PrgState prg=new PrgState(executionStack,new SymTable(), new Heap(), new Output(), new FileTable());
-
-        String filepath="files/log";
-
-        filepath+=Integer.toString(++count)+".txt";
-        //filepath+='('+count+')'+".txt";
-
-        IRepository repo=new Repository(prg,filepath);
-        Service service=new Service(repo);
-        return service;
-    }
-
 
     public static void main(String[] args) {
         launch();
     }
 }
 
-class SelectionWindow{
-
-
-}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class MainWindow{
+/*class MainWindow{
     private Service service;
 
     // UI widgets as class fields
@@ -270,4 +191,4 @@ class MainWindow{
     private void updateExecutionStack(PrgState prgState){
         executionStack.getItems().setAll(prgState.getExecutionStack().getContent());
     }
-}
+}*/
