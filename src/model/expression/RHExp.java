@@ -9,9 +9,9 @@ import my_exceptions.ExpressionException;
 import my_exceptions.MyException;
 import my_exceptions.TypeException;
 
-public class RHExp implements Expression {
-    private Expression expr;
-    public RHExp(Expression expr){this.expr=expr;}
+public class RHExp implements Exp {
+    private Exp expr;
+    public RHExp(Exp expr){this.expr=expr;}
 
     @Override
     public RHExp clone(){return new RHExp(expr.clone());}

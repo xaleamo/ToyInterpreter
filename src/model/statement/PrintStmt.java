@@ -2,19 +2,19 @@ package model.statement;
 
 import model.program_state.ADTs.MyIDictionary;
 import model.program_state.PrgState;
-import model.expression.Expression;
+import model.expression.Exp;
 import model.type.Type;
 import model.value.Id;
 import my_exceptions.TypeException;
 
-public class PrintStatement implements Statement {
-    Expression expr;
+public class PrintStmt implements IStmt {
+    Exp expr;
 
-    public PrintStatement(Expression expr) {
+    public PrintStmt(Exp expr) {
         this.expr = expr;
     }
     @Override
-    public PrintStatement clone() {return new PrintStatement(expr.clone());}
+    public PrintStmt clone() {return new PrintStmt(expr.clone());}
 
     @Override
     public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {

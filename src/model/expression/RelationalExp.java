@@ -13,16 +13,16 @@ import model.value.Value;
 import my_exceptions.ExpressionException;
 import my_exceptions.TypeException;
 
-public class RelationalExpr implements Expression {
+public class RelationalExp implements Exp {
     public enum Operator{
         LESS, LESS_OR_EQUAL, GREATER, GREATER_OR_EQUAL,
         EQUAL, NOT_EQUAL
     }
-    Expression expr1,expr2;
+    Exp expr1,expr2;
     Operator op;
 
 
-    public RelationalExpr(Expression expr1,Operator op, Expression expr2) {
+    public RelationalExp(Exp expr1, Operator op, Exp expr2) {
         this.expr1 = expr1;
         this.expr2 = expr2;
         this.op = op;
@@ -42,7 +42,7 @@ public class RelationalExpr implements Expression {
     }
 
     @Override
-    public RelationalExpr clone() {return new RelationalExpr(expr1.clone(), op, expr2.clone());}
+    public RelationalExp clone() {return new RelationalExp(expr1.clone(), op, expr2.clone());}
 
     @Override
     public Value eval(SymTable tbl, Heap heap) {

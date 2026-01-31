@@ -2,20 +2,19 @@ package model.statement;
 
 import model.program_state.ADTs.MyIDictionary;
 import model.program_state.ExecutionStack;
-import model.program_state.FileTable;
 import model.program_state.PrgState;
 import model.type.Type;
 import model.value.Id;
 import my_exceptions.TypeException;
 
-public class ForkStatement implements Statement {
-    private Statement statement;
-    public ForkStatement(Statement statement) {
+public class ForkStmt implements IStmt {
+    private IStmt statement;
+    public ForkStmt(IStmt statement) {
         this.statement = statement;
     }
     @Override
-    public ForkStatement clone(){
-        return new ForkStatement(statement.clone());
+    public ForkStmt clone(){
+        return new ForkStmt(statement.clone());
     }
 
     @Override

@@ -3,22 +3,22 @@ package model.statement;
 import model.program_state.ADTs.MyIDictionary;
 import model.type.Type;
 import my_exceptions.*;
-import model.expression.Expression;
+import model.expression.Exp;
 import model.program_state.PrgState;
 import model.program_state.SymTable;
 import model.value.Id;
 import model.value.Value;
 
-public class AssignStatement implements Statement {
+public class AssignStmt implements IStmt {
     Id id;
-    Expression expr;
-    public AssignStatement(Id id, Expression expr) {
+    Exp expr;
+    public AssignStmt(Id id, Exp expr) {
         this.id = id;
         this.expr = expr;
     }
     @Override
-    public AssignStatement clone(){
-        return new AssignStatement(id.clone(), expr.clone());
+    public AssignStmt clone(){
+        return new AssignStmt(id.clone(), expr.clone());
     }
 
     @Override

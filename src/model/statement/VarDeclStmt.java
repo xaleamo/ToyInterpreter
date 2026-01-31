@@ -8,15 +8,15 @@ import model.type.*;
 import model.value.*;
 import my_exceptions.TypeException;
 
-public class VarDeclaration implements Statement {
+public class VarDeclStmt implements IStmt {
     Type type;
     Id id;
-    public VarDeclaration(Type type, Id id) {
+    public VarDeclStmt(Type type, Id id) {
         this.type = type;
         this.id = id;
     }
     @Override
-    public VarDeclaration clone() {return new VarDeclaration(type.clone(),id.clone());}
+    public VarDeclStmt clone() {return new VarDeclStmt(type.clone(),id.clone());}
 
     @Override
     public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {

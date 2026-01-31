@@ -7,15 +7,15 @@ import model.type.Type;
 import model.value.Id;
 import my_exceptions.TypeException;
 
-public class CompStatement implements Statement {
-    Statement stmt1,stmt2;
-    public CompStatement(Statement stmt1, Statement stmt2) {
+public class CompStmt implements IStmt {
+    IStmt stmt1,stmt2;
+    public CompStmt(IStmt stmt1, IStmt stmt2) {
         this.stmt1 = stmt1;
         this.stmt2 = stmt2;
     }
 
     @Override
-    public CompStatement clone() {return new CompStatement(this.stmt1.clone(), this.stmt2.clone());}
+    public CompStmt clone() {return new CompStmt(this.stmt1.clone(), this.stmt2.clone());}
 
     @Override
     public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {

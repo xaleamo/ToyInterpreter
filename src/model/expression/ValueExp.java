@@ -8,14 +8,14 @@ import model.value.Id;
 import model.value.Value;
 import my_exceptions.MyException;
 
-public class ValueExpr implements Expression {
+public class ValueExp implements Exp {
     Value v;
-    public ValueExpr(Value v) {
+    public ValueExp(Value v) {
         this.v = v;
     }
 
     @Override
-    public ValueExpr clone() {return new ValueExpr(v.clone());}
+    public ValueExp clone() {return new ValueExp(v.clone());}
 
     @Override
     public Type typecheck(MyIDictionary<Id, Type> typeEnv) throws MyException {

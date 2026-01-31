@@ -1,8 +1,8 @@
 package tests;
 
 import controller.Service;
-import model.expression.ValueExpr;
-import model.expression.VariableExpr;
+import model.expression.ValueExp;
+import model.expression.VariableExp;
 import model.program_state.*;
 import model.statement.*;
 import model.type.IntType;
@@ -59,23 +59,23 @@ public class CloneTest {
 
     }
     private static PrgState FileProgram1() {
-        Statement s1 = new CompStatement(
-                new VarDeclaration(new StringType(), new Id("varf")),
-                new CompStatement(
-                        new AssignStatement(new Id("varf"), new ValueExpr(new StringValue("Files/test.txt"))),
-                        new CompStatement(
-                                new OpenRFile(new VariableExpr(new Id("varf"))),
-                                new CompStatement(
-                                        new VarDeclaration(new IntType(), new Id("varc")),
-                                        new CompStatement(
-                                                new ReadFile(new VariableExpr(new Id("varf")), new Id("varc")),
-                                                new CompStatement(
-                                                        new PrintStatement(new VariableExpr(new Id("varc"))),
-                                                        new CompStatement(
-                                                                new ReadFile(new VariableExpr(new Id("varf")), new Id("varc")),
-                                                                new CompStatement(
-                                                                        new PrintStatement(new VariableExpr(new Id("varc"))),
-                                                                        new CloseRFile(new VariableExpr(new Id("varf")))
+        IStmt s1 = new CompStmt(
+                new VarDeclStmt(new StringType(), new Id("varf")),
+                new CompStmt(
+                        new AssignStmt(new Id("varf"), new ValueExp(new StringValue("Files/test.txt"))),
+                        new CompStmt(
+                                new OpenRFile(new VariableExp(new Id("varf"))),
+                                new CompStmt(
+                                        new VarDeclStmt(new IntType(), new Id("varc")),
+                                        new CompStmt(
+                                                new ReadFile(new VariableExp(new Id("varf")), new Id("varc")),
+                                                new CompStmt(
+                                                        new PrintStmt(new VariableExp(new Id("varc"))),
+                                                        new CompStmt(
+                                                                new ReadFile(new VariableExp(new Id("varf")), new Id("varc")),
+                                                                new CompStmt(
+                                                                        new PrintStmt(new VariableExp(new Id("varc"))),
+                                                                        new CloseRFile(new VariableExp(new Id("varf")))
                                                                 )
                                                         )
                                                 )
@@ -85,7 +85,7 @@ public class CloneTest {
                 )
         );
 
-        //Statement s2= new CloseRFile(new VariableExpr(new Id("varf")));
+        //Statement s2= new CloseRFile(new VariableExp(new Id("varf")));
 
         ExecutionStack executionStack = new ExecutionStack();
         //executionStack.push(s2);

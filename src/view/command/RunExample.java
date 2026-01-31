@@ -2,7 +2,7 @@ package view.command;
 
 import controller.Service;
 import model.program_state.*;
-import model.statement.Statement;
+import model.statement.IStmt;
 import my_exceptions.MyException;
 import my_exceptions.TypeException;
 import repository.IRepository;
@@ -10,8 +10,8 @@ import repository.Repository;
 
 public class RunExample extends Command {
     private static int count=0;
-    Statement statement;
-    public RunExample(String key, String description, Statement statement) {
+    IStmt statement;
+    public RunExample(String key, String description, IStmt statement) {
         super(key,description);
         this.statement = statement;
     }

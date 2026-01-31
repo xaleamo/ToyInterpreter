@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import model.program_state.PrgState;
-import model.statement.Statement;
+import model.statement.IStmt;
 import model.value.*;
 import my_exceptions.MyException;
 
@@ -30,7 +30,7 @@ public class MainWindowController implements Initializable {
     @FXML private ListView<StringValue> fileTable;
     @FXML private ListView<Integer> prgStateIDs;
     @FXML private TableView<Map.Entry<Id, Value>> symTable;
-    @FXML private ListView<Statement> executionStack;
+    @FXML private ListView<IStmt> executionStack;
     @FXML private Button runOneStepButton;
     @FXML private TextArea errorLogArea;
 

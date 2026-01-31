@@ -7,21 +7,21 @@ import model.program_state.SymTable;
 import model.type.RefType;
 import model.type.Type;
 import model.value.*;
-import model.expression.Expression;
+import model.expression.Exp;
 import my_exceptions.StatementException;
 import my_exceptions.TypeException;
 
-public class WriteHeap implements Statement{
+public class WHStmt implements IStmt {
     Id var_name;
-    Expression expr;
-    public WriteHeap(Id var_name, Expression expr){
+    Exp expr;
+    public WHStmt(Id var_name, Exp expr){
         this.var_name = var_name;
         this.expr = expr;
     }
 
     @Override
-    public WriteHeap clone(){
-        return new WriteHeap(var_name.clone(),expr.clone());
+    public WHStmt clone(){
+        return new WHStmt(var_name.clone(),expr.clone());
     }
 
     @Override

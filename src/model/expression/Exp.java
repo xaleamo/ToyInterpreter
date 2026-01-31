@@ -8,8 +8,8 @@ import model.value.Value;
 import model.program_state.SymTable;
 import my_exceptions.MyException;
 
-public interface Expression extends Cloneable {
+public interface Exp extends Cloneable {
     Value eval(SymTable tbl, Heap heap);
-    Expression clone();
+    Exp clone();
     Type typecheck(MyIDictionary<Id, Type> typeEnv) throws MyException;
 }

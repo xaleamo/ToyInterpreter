@@ -56,7 +56,7 @@ public class Service {
                         } catch (InterruptedException e) {
                             throw new MyException("Thread was interrupted.");
                         } catch (CancellationException e) {
-                            throw new MyException("Thread was cancelleds.");
+                            throw new MyException("Thread was cancelled.");
                         }
                     })
                     .filter(p -> p != null)

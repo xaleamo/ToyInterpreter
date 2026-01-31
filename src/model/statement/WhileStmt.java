@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.expression.Expression;
+import model.expression.Exp;
 import model.program_state.ADTs.MyIDictionary;
 import model.program_state.PrgState;
 import model.type.BoolType;
@@ -11,12 +11,12 @@ import model.value.Value;
 import my_exceptions.ExpressionException;
 import my_exceptions.TypeException;
 
-public class WhileStatement implements Statement{
+public class WhileStmt implements IStmt {
 
-    private Expression condition;
-    private Statement statement;//should be a compound statement if I want more
+    private Exp condition;
+    private IStmt statement;//should be a compound statement if I want more
 
-    public WhileStatement(Expression condition, Statement statement){
+    public WhileStmt(Exp condition, IStmt statement){
         this.condition=condition;
         this.statement=statement;
     }
@@ -36,8 +36,8 @@ public class WhileStatement implements Statement{
     }
 
     @Override
-    public WhileStatement clone() {
-        return new WhileStatement(condition.clone(),statement.clone());
+    public WhileStmt clone() {
+        return new WhileStmt(condition.clone(),statement.clone());
     }
 
     @Override

@@ -12,17 +12,17 @@ import model.type.IntType;
 import my_exceptions.TypeException;
 
 
-public class ArithExpr implements Expression {
+public class ArithExp implements Exp {
     public enum Operator{ //static by default
         ADD,
         SUBTRACT,
         MULTIPLY,
         DIVIDE
     }
-    Expression op1,op2;
+    Exp op1,op2;
     Operator operator;
 
-    public ArithExpr(Expression op1, Operator operator, Expression op2) {
+    public ArithExp(Exp op1, Operator operator, Exp op2) {
         this.op1 = op1;
         this.op2 = op2;
         this.operator = operator;
@@ -42,7 +42,7 @@ public class ArithExpr implements Expression {
     }
 
     @Override
-    public ArithExpr clone() {return new ArithExpr(op1.clone(), operator, op2.clone());}
+    public ArithExp clone() {return new ArithExp(op1.clone(), operator, op2.clone());}
 
     @Override
     public Value eval(SymTable tbl, Heap heap){

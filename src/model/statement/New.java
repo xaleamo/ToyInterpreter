@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.expression.Expression;
+import model.expression.Exp;
 import model.program_state.*;
 import model.program_state.ADTs.MyIDictionary;
 import model.type.RefType;
@@ -11,18 +11,18 @@ import model.value.Value;
 import my_exceptions.TypeException;
 import my_exceptions.UndeclaredVariable;
 
-public class NewStatement implements Statement, Cloneable{
+public class New implements IStmt, Cloneable{
     private Id var_name;
-    private Expression expr;
+    private Exp expr;
 
-    public NewStatement(Id var_name, Expression expr) {
+    public New(Id var_name, Exp expr) {
         this.var_name=var_name;
         this.expr=expr;
     }
 
     @Override
-    public Statement clone(){
-        return new NewStatement(var_name,expr);
+    public IStmt clone(){
+        return new New(var_name,expr);
     }
 
     @Override

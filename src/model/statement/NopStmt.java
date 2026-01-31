@@ -6,10 +6,10 @@ import model.type.Type;
 import model.value.Id;
 import my_exceptions.TypeException;
 
-public class Nop implements Statement {
+public class NopStmt implements IStmt {
 
     @Override
-    public Nop clone() {return new Nop();}
+    public NopStmt clone() {return new NopStmt();}
 
     @Override
     public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {

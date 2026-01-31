@@ -2,24 +2,24 @@ package model.statement;
 
 import model.program_state.ADTs.MyIDictionary;
 import my_exceptions.StatementException;
-import model.expression.Expression;
+import model.expression.Exp;
 import model.program_state.PrgState;
 import model.value.*;
 import model.type.*;
 import my_exceptions.TypeException;
 
-public class IfStatement implements Statement {
-    Expression condExpr;
-    Statement thenStatement, elseStatement;
+public class IfStmt implements IStmt {
+    Exp condExpr;
+    IStmt thenStatement, elseStatement;
 
-    public IfStatement(Expression condExpr, Statement thenStatement, Statement elseStatement) {
+    public IfStmt(Exp condExpr, IStmt thenStatement, IStmt elseStatement) {
         this.condExpr = condExpr;
         this.thenStatement = thenStatement;
         this.elseStatement = elseStatement;
     }
 
     @Override
-    public IfStatement clone() {return new IfStatement(condExpr.clone(), thenStatement.clone(), this.elseStatement.clone());}
+    public IfStmt clone() {return new IfStmt(condExpr.clone(), thenStatement.clone(), this.elseStatement.clone());}
 
     @Override
     public MyIDictionary<Id, Type> typecheck(MyIDictionary<Id, Type> typeEnv) throws TypeException {

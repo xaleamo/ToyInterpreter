@@ -6,9 +6,9 @@ import model.type.Type;
 import model.value.Id;
 import my_exceptions.TypeException;
 
-public interface Statement extends Cloneable {
+public interface IStmt extends Cloneable {
     PrgState execute(PrgState ps);
 
-    Statement clone();
+    IStmt clone();
     MyIDictionary<Id, Type> typecheck(MyIDictionary<Id,Type> typeEnv) throws TypeException;
 }

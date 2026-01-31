@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.expression.Expression;
+import model.expression.Exp;
 import model.program_state.ADTs.MyIDictionary;
 import model.program_state.PrgState;
 import model.type.IntType;
@@ -15,11 +15,11 @@ import my_exceptions.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class ReadFile implements Statement {
-    Expression expr;
+public class ReadFile implements IStmt {
+    Exp expr;
     Id id;
 
-    public ReadFile(Expression expr, Id id){
+    public ReadFile(Exp expr, Id id){
         this.expr=expr;
         this.id=id;
     }

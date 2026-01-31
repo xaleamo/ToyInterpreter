@@ -1,7 +1,7 @@
 package model.program_state;
 
 
-import model.statement.Statement;
+import model.statement.IStmt;
 import my_exceptions.MyException;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -48,7 +48,7 @@ public class PrgState implements Cloneable {
 
     public PrgState oneStep() throws MyException {
         if(executionStack.isEmpty()) throw new MyException("prgstate stack is empty");
-        Statement crtStmt = executionStack.pop();
+        IStmt crtStmt = executionStack.pop();
         return crtStmt.execute(this);
     }
 

@@ -3,7 +3,6 @@ package viewGUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import controller.Service;
 import javafx.fxml.FXML;
@@ -17,7 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import main.Interpreter;
 import model.program_state.*;
-import model.statement.Statement;
+import model.statement.IStmt;
 import my_exceptions.MyException;
 import my_exceptions.TypeException;
 import repository.IRepository;
@@ -31,7 +30,7 @@ public class ProgramSelectorController implements Initializable {
     @FXML
     private TextArea info;
     @FXML
-    private ListView<Statement> programs;
+    private ListView<IStmt> programs;
 
 
     @Override
@@ -49,7 +48,7 @@ public class ProgramSelectorController implements Initializable {
     }
     private void connectEvents(){
         runButton.setOnAction(event -> {
-            Statement statement=programs.getSelectionModel().getSelectedItem();
+            IStmt statement=programs.getSelectionModel().getSelectedItem();
             info.clear();
             if(statement==null){return;}
             try {
@@ -78,7 +77,7 @@ public class ProgramSelectorController implements Initializable {
     }
 
     ///this statement is supposed to pass the typechecker
-    private Service createService(Statement statement){
+    private Service createService(IStmt statement){
             //construct program state, repo and service dynamically
             ExecutionStack executionStack = new ExecutionStack();
             executionStack.push(statement);

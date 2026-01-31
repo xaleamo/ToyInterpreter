@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.expression.Expression;
+import model.expression.Exp;
 import model.program_state.ADTs.MyIDictionary;
 import model.program_state.PrgState;
 import model.type.StringType;
@@ -16,9 +16,9 @@ import my_exceptions.TypeException;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class CloseRFile implements Statement{
-    Expression expr;
-    public CloseRFile(Expression expr){
+public class CloseRFile implements IStmt {
+    Exp expr;
+    public CloseRFile(Exp expr){
         this.expr=expr;
     }
 

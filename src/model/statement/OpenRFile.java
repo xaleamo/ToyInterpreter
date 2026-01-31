@@ -1,6 +1,6 @@
 package model.statement;
 
-import model.expression.Expression;
+import model.expression.Exp;
 import model.program_state.ADTs.MyIDictionary;
 import model.program_state.PrgState;
 import model.type.StringType;
@@ -15,10 +15,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class OpenRFile implements Statement{
-    Expression expr;
+public class OpenRFile implements IStmt {
+    Exp expr;
 
-    public OpenRFile(Expression expr){
+    public OpenRFile(Exp expr){
         this.expr = expr;
     }
 

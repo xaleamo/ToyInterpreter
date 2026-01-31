@@ -11,16 +11,16 @@ import model.value.BoolValue;
 import model.value.Value;
 import my_exceptions.TypeException;
 
-public class LogicExpr implements Expression {
+public class LogicExp implements Exp {
 
     public enum Operator {
         AND,
         OR
     }
 
-    private Expression e1,e2;
+    private Exp e1,e2;
     private Operator op;
-    public LogicExpr(Expression e1,Operator op,Expression e2) {
+    public LogicExp(Exp e1, Operator op, Exp e2) {
         this.e1 = e1;
         this.op = op;
         this.e2 = e2;
@@ -40,7 +40,7 @@ public class LogicExpr implements Expression {
     }
 
     @Override
-    public LogicExpr clone() {return new LogicExpr(e1.clone(),op,e2.clone());}
+    public LogicExp clone() {return new LogicExp(e1.clone(),op,e2.clone());}
 
     @Override
     public Value eval(SymTable tbl, Heap heap){

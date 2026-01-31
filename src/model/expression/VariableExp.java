@@ -9,14 +9,14 @@ import model.value.Value;
 import my_exceptions.MyException;
 import my_exceptions.UndeclaredVariable;
 
-public class VariableExpr implements Expression {
+public class VariableExp implements Exp {
     private final Id id;
-    public VariableExpr(Id id) {
+    public VariableExp(Id id) {
         this.id = id;
     }
 
     @Override
-    public VariableExpr clone() {return new VariableExpr(id.clone());}
+    public VariableExp clone() {return new VariableExp(id.clone());}
 
     @Override
     public Type typecheck(MyIDictionary<Id, Type> typeEnv) throws MyException {
